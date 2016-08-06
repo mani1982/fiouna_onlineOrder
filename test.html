@@ -243,6 +243,16 @@
 
     });
 
+    $.get('http://127.0.0.1:8000/online-order/FullListdisheshwithDetails/').done(function(data){
+
+        mainobj = data;
+        //console.log(data);
+        console.log('az inja: ');
+        console.log(mainobj);
+    });
+
+
+
 // setTimeout(function(){
 
 // $("a").on("click", function(){
@@ -253,66 +263,66 @@
 
 // }, 500);
 
-$("#mani").on("click", 'a', function(e){
-    var that = $(this);
-    console.log($(that).text());
-    var txt = $(that).text();
-    $.get('http://127.0.0.1:8000/online-order/DishesListAPIView/' + txt + '/').done(function(data){
-        console.log(data);
-        $('#section table').empty();
-        $.each(data, function(index, val){
-                //console.log(index + ":  " + val)
-                //console.log($(this).dishes);
-                $.each(val.dishes, function(index, val){
-                    console.log(index + ":  " + val.dishes_name);
-                    $("#section table").append('<tr id="' + val.id + '" data-toggle="modal" data-target="#menu-items-details"><td><a href="#"><div class="dishName" value="' + val.dishes_name + '"><h4>' + val.dishes_name + '</h4></div>' + 
-                        '<div class="dishDescription">' + val.description + '</div></a></td></tr>');
-                });
-            });
-    }); 
-});
+// $("#mani").on("click", 'a', function(e){
+//     var that = $(this);
+//     console.log($(that).text());
+//     var txt = $(that).text();
+//     $.get('http://127.0.0.1:8000/online-order/DishesListAPIView/' + txt + '/').done(function(data){
+//         console.log(data);
+//         $('#section table').empty();
+//         $.each(data, function(index, val){
+//                 //console.log(index + ":  " + val)
+//                 //console.log($(this).dishes);
+//                 $.each(val.dishes, function(index, val){
+//                     console.log(index + ":  " + val.dishes_name);
+//                     $("#section table").append('<tr id="' + val.id + '" data-toggle="modal" data-target="#menu-items-details"><td><a href="#"><div class="dishName" value="' + val.dishes_name + '"><h4>' + val.dishes_name + '</h4></div>' + 
+//                         '<div class="dishDescription">' + val.description + '</div></a></td></tr>');
+//                 });
+//             });
+//     }); 
+// });
 
-//add functinality that when you click on dishesh see the options
-// $('tr').on('click', 'a',function(event){
+// //add functinality that when you click on dishesh see the options
+// // $('tr').on('click', 'a',function(event){
 
-// })
-//$('#menu-items-details').modal('show')
+// // })
+// //$('#menu-items-details').modal('show')
 
 
-$('#menu-items-details').on('show.bs.modal', function (event) {
-  var button = $(event.relatedTarget)
-  var modal = $(this);
-  console.log(button.attr('id'));
-  var dish_id = button.attr('id');
-  $.get('http://127.0.0.1:8000/online-order/DishesDetailsAPIView/' + dish_id +'/').done(function(data){
-    console.log(data);
-    var dish_details = data[0];
+// $('#menu-items-details').on('show.bs.modal', function (event) {
+//   var button = $(event.relatedTarget)
+//   var modal = $(this);
+//   console.log(button.attr('id'));
+//   var dish_id = button.attr('id');
+//   $.get('http://127.0.0.1:8000/online-order/DishesDetailsAPIView/' + dish_id +'/').done(function(data){
+//     console.log(data);
+//     var dish_details = data[0];
 
-    modal.find('.modal-title').text(dish_details.dishes_name);
+//     modal.find('.modal-title').text(dish_details.dishes_name);
 
-    // test
-    var myModal = modal.find('.modal-title');
-    var res = '';
-    res += '<h2>Title</h2>';
-    res += '<p>Para 1</p>';
-    res += '....<br>';
-    res += 'dsadfsada<br>';
-    res += '';
-    res += '';
-    res += '';
-    $('#mTitle').html('Mani Title');    
+//     // test
+//     var myModal = modal.find('.modal-title');
+//     var res = '';
+//     res += '<h2>Title</h2>';
+//     res += '<p>Para 1</p>';
+//     res += '....<br>';
+//     res += 'dsadfsada<br>';
+//     res += '';
+//     res += '';
+//     res += '';
+//     $('#mTitle').html('Mani Title');    
 
-    if(dish_details.sizes != 0 || dish_details.sizes == undefined){
-        $.each(dish_details.sizes, function(inx, val){
+//     if(dish_details.sizes != 0 || dish_details.sizes == undefined){
+//         $.each(dish_details.sizes, function(inx, val){
 
-        });
-    }
+//         });
+//     }
 
-    //modal.find('.modal-body input').val(recipient)
+//     //modal.find('.modal-body input').val(recipient)
 
-  });
+//   });
 
-});
+// });
 
 //}
  });
