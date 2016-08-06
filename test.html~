@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+    <!-- Latest compiled and minified JavaScript -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>
+
+
+    <!--script src="static/online_order/index.js"></script-->
+</head>
+<body>
+
+ <div class="jumbotron">
+      <div class="container">
+        <h1>Hello, world!</h1>
+        <p>This is a template for a simple marketing or informational website. It includes a large callout called a jumbotron and three supporting pieces of content. Use it as a starting point to create something more unique.</p>
+        <p><a class="btn btn-primary btn-lg" href="#" role="button">Learn more &raquo;</a></p>
+          <ul class="nav nav-pills nav-stacked" id="mani"></ul>
+      </div>
+    </div>
+
+</body>
+<script>
+$(document).ready(function (){
+	$.post('http://127.0.0.1:8000/online-order/FullMenueAPIView/').done(function(data){
+		var d = data;
+	    for(var i =0; i < data.length; i++){
+	    	$('#mani').append('<li class=""><a href="#" id="'+ d[i].id + '"' + '>' + d[i].menus_name + "</a></li>");
+	    }
+
+	});
+});
+</script>
+</html>
