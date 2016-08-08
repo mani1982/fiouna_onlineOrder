@@ -144,24 +144,25 @@
     <div id="menu-items-details" class="modal fade" tabindex="-1" role="dialog" data-displayed-menu-item-id="" > 
 
         <div id="menu-items-details-wrapper" class="modal-dialog">
+            <form class="form-horizontal addTocart" method="" action="" autocomplete="off" name="addTocart" onsubmit="event.preventDefault();" >
+                <div id="menu-items-details-content" class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                        <h4 class="modal-title" id="mTitle"></h4>                    
+                    </div>
 
-            <div id="menu-items-details-content" class="modal-content">
-                <div class="modal-header">
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                    <h4 class="modal-title" id="mTitle"></h4>                    
+                    <div class="modal-body">
+
+
+
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                        <button type="submit" class="btn btn-primary">Add to Cart</button>
+                    </div>
+
                 </div>
-
-                <div class="modal-body">
-                    <form>
-
-                    </form>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                    <button type="button" class="btn btn-primary">Send message</button>
-                </div>
-
-            </div>   
+            </form>   
 
         </div>
 
@@ -260,8 +261,8 @@
 
     $(document).ready(function (){
 
-    var mainobj = {}
-    $.get('http://127.0.0.1:8000/online-order/MenusAPIView/').done(function(data){
+        var mainobj = {}
+        $.get('http://127.0.0.1:8000/online-order/MenusAPIView/').done(function(data){
     //$.get('http://ec2-54-205-29-188.compute-1.amazonaws.com/online-order/MenusAPIView/').done(function(data){
         var d = data;
         //console.log(data)
@@ -277,17 +278,17 @@
         console.log(data);
     });
 
+    
 
-
-// setTimeout(function(){
-
+    setTimeout(function(){
+        $('#mani a[id=' + Math.floor((Math.random() * 10) + 1) + ']').trigger("click");
 // $("a").on("click", function(){
 // var that = $(this);
 // console.log(that.text());
 // });
 
 
-// }, 500);
+}, 500);
 
 $("#mani").on("click", 'a', function(e){
     e.preventDefault();
@@ -308,9 +309,9 @@ $("#mani").on("click", 'a', function(e){
             // console.log("menu: ");
             // console.log(val.menus_name);
              //console.log(this);
-            $.each(objectOfthisMenu.dishes, function(index, val){
+             $.each(objectOfthisMenu.dishes, function(index, val){
                 //console.log(val);    
-               dish.push({dish_id: val.id, menu_id: val.menus, name: val.dishes_name, description: val.description});
+                dish.push({dish_id: val.id, menu_id: val.menus, name: val.dishes_name, description: val.description});
             });
 
             // console.log("dish object: ");
@@ -353,23 +354,41 @@ $('#menu-items-details').on('show.bs.modal', function (event) {
         console.log(val);
         $.each(val.dishes, function(i,v){
 
-            
+
 
             if(v.id.toString() === dishId){
                 console.log(v);
 
-                modal.find('.modal-title').text(v.dishes_name);
-                var mdl = modal.find('.modal-body form').empty();
+                var total = 0.00;
+                total += parseFloat(v.sizes[0].price);//.toFixed(2);
+                //console.log(typeof(total)); 
+                var title = '<div><h4>' + v.dishes_name + '</h4>total: $' + total +'<div>';
+                modal.find('.modal-title').html(title);
+                var mdl = modal.find('.modal-body').empty();
 
                 var res = '';
-                res += '<form class="form-horizontal addTocart" method="post" action="" autocomplete="off" name="addTocart">';
+                
+                console.log(v.sizes.length);
+                if(v.sizes.length > 1 && v.sizes != undefined){
+                    res += '<div class="form-group"><h4>Select size: </h4>';
+                    $.each(v.sizes, function(i,val){
+                        var price = (val.price)== null? null :  parseFloat(val.price).toFixed(2);
+                        console.log(val);
+                        res += '<div class="radio"><label>';
+                        res += '<input type="radio" name="size" id="' + val.id + '" value="' + price +'">';
+                        res += val.sizes + '($'+ price + ')';
+                        res += '</label></div>'; 
+                    });
+                    
+                }
+
                 if(v.sides.length > 0 && v.sides != undefined){
-                    res +=  '<div class="form-group"><h4>Select salad or side: </h4>';
-                    res += '<select class="form-control">';
+                    res += '<div class="form-group"><h4>Select salad or side: </h4>';
+                    res += '<select class="form-control" name="sides">';
                     $.each(v.sides, function(i,val){
                         //console.log(val);
                         
-                        res += '<option name="sides" id="' +val.id +'" value="' +val.side_name +'" >';
+                        res += '<option  id="' +val.id +'" value="' +val.side_name +'" >';
                         res += val.side_name + '</option>';
                     });
                     res += '</select></div>'
@@ -377,22 +396,34 @@ $('#menu-items-details').on('show.bs.modal', function (event) {
 
                 if(v.riceOptions.length > 0 && v.riceOptions != undefined){
                     res += '<div class="form-group"><h4>Select rice dish: </h4>';
-                    res += '<select class="form-control">';
+                    res += '<select class="form-control" name="riceOptions">';
                     $.each(v.riceOptions, function(i,val){
-                        res += '<option name="riceOptions" id="' +val.id +'" value="' +val.rice_name +'" >';
+                        var price = (val.price)== null? null :  parseFloat(val.price).toFixed(2);
+                        res += '<option  id="' +val.id +'" value="' +val.rice_name +'" data-extra-cost="'+ price +'">';
                         res += val.rice_name ;
                         if(val.price != null){
-                            res += '  (ADD $' + val.price +')' ;        
+                            res += '(ADD $' + parseFloat(val.price).toFixed(2) +')' ;        
                         }
                         res += '</option>';
                     });
                     res += '</select></div>'
                 }
 
+                if(v.add.length > 0 && v.add != undefined){
+                    res += '<h4>Add: </h4>';
+                    $.each(v.add, function(i,val){
+                        res += '<div class="checkbox">';
+                        res += '<label><input type="checkbox" name="add" value="' + val.add_name +'" add_id="' + val.id +'" >';
+                        var price = (val.price)== null? '' : '($' + parseFloat(val.price).toFixed(2) + ')';
+                        res += val.add_name + price;
+                        res += '</label></div>' 
+                    });
 
+                }
+
+                res += '<div class="specialRequests"><textarea class="form-control" rows="2" placeholder="Special instructions, allergies, etc." name="specialRequests"></textarea>';                
                 
-                
-                mdl.append('<p>hello from inside</p>'+ res);
+                mdl.append(res);
 
                 return false;
             }
@@ -403,24 +434,15 @@ $('#menu-items-details').on('show.bs.modal', function (event) {
         return false;
     }
 
-    });
-  // $.get('http://127.0.0.1:8000/online-order/DishesDetailsAPIView/' + dish_id +'/').done(function(data){
-  //   console.log(data);
-  //   var dish_details = data[0];
+});
 
-  //   modal.find('.modal-title').text(dish_details.dishes_name);
+});
 
-  //   // test
-  //   var myModal = modal.find('.modal-title');
-  //   var res = '';
-  //   res += '<h2>Title</h2>';
-  //   res += '<p>Para 1</p>';
-  //   res += '....<br>';
-  //   res += 'dsadfsada<br>';
-  //   res += '';
-  //   res += '';
-  //   res += '';
-  //   $('#mTitle').html('Mani Title');    
+$('form.addTocart').submit(function(e){
+    console.log($(this).serialize());
+});
+
+
 
   //   if(dish_details.sizes != 0 || dish_details.sizes == undefined){
   //       $.each(dish_details.sizes, function(inx, val){
@@ -432,9 +454,9 @@ $('#menu-items-details').on('show.bs.modal', function (event) {
 
   // });
 
+
+
+
 });
-
-
- });
 </script>
 </html>
