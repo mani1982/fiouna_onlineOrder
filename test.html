@@ -356,9 +356,16 @@
 							var total = 0.00;
 							total += parseFloat(v.sizes[0].price);//.toFixed(2);
 							var title = "";
-							//console.log(typeof(total)); 
-							title += '<div><h4>' + v.dishes_name + '</h4></div>';
-							title += '<div class="totalamount" name="totalamount" value="'+ total +'">total: $<span class="amount">' + total +'</span></div>';
+							//var dishName = v.dishes_name
+							//console.log(typeof(total));
+							title += '<input type="hidden" id="dishname" name="dish_name" value="'+ v.dishes_name +'">';
+							title += '<input type="hidden" id="totalprice" name="totalPrice" value="' + total +'">';
+							title += '<input type="hidden" id="menu.id" name="menuId" value="' + menuId +'">';
+							title += '<input type="hidden" id="dish.id" name="dishId" value="' + dishId +'">';
+
+							title += '<div ><h4>' + v.dishes_name + '</h4></div>';
+							title += '<div class="totalamount" name="totalamount" value="'+ total +'" data-base-cost="'+ total +'">';
+							title += 'total: $<span class="amount">' + total +'</span></div>';
 
 							title += '<div class="menu-item-details-quantity">';
 							title += '<input type="button" class="input-orderitem-quantity-decrement btn" value="-">';
@@ -389,11 +396,13 @@
 								$.each(v.sizes, function(i,val){
 									var price = (val.price)== null? 0 :  parseFloat(val.price).toFixed(2);
 									//console.log(val);
-									res += '<div><span class="size">';
-									res += '<input type="radio" name="size" id="' + val.id + '" value="' + price +'"></span>';
+									res += '<div class="size"><span >';
+									res += '<input type="radio" name="size" id="' + val.id + '" value="' +dishName + " " + val.sizes +'" data-price="' + price +'"></span>';
 									res += val.sizes + '($'+ price + ')';
 									res += '</div>'; 
 								});
+
+								//$('input[type=radio]').get(0).checked = true;
 
 							}
 
@@ -407,6 +416,9 @@
 									res += val.side_name + '</option>';
 								});
 								res += '</select></div>';
+
+								//$('.modal-body .sideHolder').first().children('.sides').attr('Select', 'selected');
+								
 							}
 
 							if(v.riceOptions.length > 0 && v.riceOptions != undefined){
@@ -426,14 +438,16 @@
 							
 
 							if(v.add.length > 0 && v.add != undefined){
-								res += '<h4>Add: </h4>';
+								res += '<div class="addHolder"><h4>Add: </h4>';
 								$.each(v.add, function(i,val){
+									var price = (val.price)== null? 0 : parseFloat(val.price).toFixed(2);
 									res += '<div class="Add">';
-									res += '<label><input type="checkbox" name="add" value="' + val.add_name +'" add_id="' + val.id +'" >';
-									var price = (val.price)== null? '' : '($' + parseFloat(val.price).toFixed(2) + ')';
-									res += val.add_name + price;
+									res += '<label><input type="checkbox" name="add" value="' + val.add_name +'" add_id="' + val.id +'" data-extra-cost="'+ price + '" >';
+									res += val.add_name + (price > 0 ? '($' + price + ')' : '');
 									res += '</label></div>';
 								});
+
+								res += '</div>';
 
 							}
 
@@ -441,7 +455,9 @@
 
 							mdl.append(res);
 
-							chooseSizeEvenHandler();
+							$('.modal-body input[type=radio]:first').attr('checked', true);
+
+							EvenHandler();
 							//updateTotalModalPrice();
 
 							return false;
@@ -456,45 +472,104 @@
 
 		});
 
-		var chooseSizeEvenHandler = function(){
+		var EvenHandler = function(){
 
-			$('.modal-body').find('.size').on('click', function(event){
-				//console.log($(this));
-				//event.preventDefault();
-				var that = $(this);
+			// $('.modal-body').find('.size').on('click', function(event){
+			// 	//console.log($(this));
+			// 	//event.preventDefault();
+			// 	var that = $(this);
+			// 	$('.modal-body').find('.size').each(function() {
+			// 		$(this).removeClass("selected");
+			// 	});
+
+			// 	$(that).addClass('selected');
+			// 	updateTotalModalPrice();
+			// 	//chooseSizePriceUpdate(that);
+
+			// });
+
+			$('.modal-body .size').on('change', function(event){
 				$('.modal-body').find('.size').each(function() {
-					$(this).removeClass("selected");
+					$(this).removeAttr("checked");
 				});
-
-				$(that).addClass('selected');
-
-				chooseSizePriceUpdate(that);
-
+				$(this).attr('checked', true);
+				updateTotalModalPrice();
 			});
+
+
+			//$('.modal-body .sides option:first').attr('selected','selected');
+			
+			$('.modal-body .sides').on('change',function(event){
+				updateTotalModalPrice();
+				// console.log($(this).val());
+				// $('option:selected', this).attr('selected','selected');
+			});
+
+
+			$('.modal-body .riceOptions').on('change',function(event){
+				updateTotalModalPrice();
+				// console.log($(this).val());
+				// $('option:selected', this).attr('selected','selected');
+			});
+
+
+			$('.modal-body .Add').on('change', function(event){
+				console.log("Hello");
+				updateTotalModalPrice();
+			});
+
 		};
 
 
-		var chooseSizePriceUpdate = function(elm){
-			var getSizePrice = parseFloat(elm.find("input[name=size]").val());  //$('.modal-body').find(".size").val();
-			updateTotalModalPrice();
-		};
+		// var chooseSizePriceUpdate = function(elm){
+		// 	var getSizePrice = parseFloat(elm.find("input[name=size]").val());  //$('.modal-body').find(".size").val();
+		// 	updateTotalModalPrice();
+		// };
 
 		//fix the logic
 		var updateTotalModalPrice = function(){
-			var total = 0, additionalCost = 0;
-
-			var totalPlaceHolder = $('.totalamount .amount');
-			console.log(totalPlaceHolder);
-
-			var baseCost = $('.totalamount').attr('value');
+			var total = 0, additionalCost = 0, baseCost = 0;
+			baseCost = $('.totalamount').data('base-cost'); //.attr('value');
 			var quantity = parseInt($('.menu-item-details-quantity').find(".input-orderitem-quantity").val());
 
-			console.log(quantity);
+			var totalPlaceHolder = $('.totalamount .amount');
+			//console.log(totalPlaceHolder);
 
-			total = (baseCost) * quantity;
+			var sizeprice = isNaN(parseFloat($('.sizeHolder input[name="size"]:checked').data('price'))) ? 0 : parseFloat($('.sizeHolder input[name="size"]:checked').data('price'));
+
+			if(sizeprice != 0){
+				baseCost = sizeprice;
+			}
+
+			var sidePrice = isNaN(parseFloat($('.sides option:selected').attr('data-extra-cost'))) ? 0 : parseFloat($('.sides option:selected').attr('data-extra-cost'));
+
+			var ricePrice = isNaN(parseFloat($('.riceOptions option:selected').attr('data-extra-cost'))) ? 0 : parseFloat($('.riceOptions option:selected').attr('data-extra-cost'));
+
+			var addprice = 0;
+
+			// console.log(sizeprice);
+
+			// console.log(sidePrice);
+
+			// console.log(ricePrice);
+
+			$('.Add input[name="add"]').each(function(i, e){
+				if(this.checked){
+					//console.log($(this).data('extra-cost'));
+					addprice += (isNaN(parseFloat($(this).data('extra-cost'))) ? 0 : parseFloat($(this).data('extra-cost')));
+				}
+			});
+			console.log(addprice);
+
+			//console.log('proce option: ', $('.Add:checkbox'));
+
+			//console.log(quantity);
+
+			total = (baseCost * quantity) + (sidePrice * quantity) + (ricePrice * quantity) + (addprice * quantity);
 
 			totalPlaceHolder.text(total.toFixed(2));
 			$('.totalamount').attr('value', total.toFixed(2));
+			$('#totalprice').attr('value', total.toFixed(2));
 		};
 
 
