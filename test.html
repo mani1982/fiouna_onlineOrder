@@ -140,6 +140,36 @@
     color: red;
     cursor: pointer;
 }
+
+/* modal styles */
+form .modal-title h4 {
+    font-size: 20px;
+    color: #23527c;
+    padding-bottom: 4px;
+    border-bottom: 1px solid #98b6d2;
+}
+
+form input.input-spinner {
+    height: 2em;
+    margin: -2px 2px 0 2px;
+    padding: 3px 12px;
+}
+
+form input.input-orderitem-quantity {
+    padding: 2px 4px;
+    text-align: center;
+}
+
+form .size span {
+	margin: 2px 6px;
+	padding-right: 4px;
+}
+
+form input[type="checkbox"] {margin: 2px 6px;}
+
+form textarea {margin-top: 12px;}
+
+form .btn {padding: 12px 24px;}
 </style>
 
 <!--script src="static/online_order/index.js"></script-->
@@ -346,7 +376,7 @@
 		$.get('http://127.0.0.1:8000/online-order/MenusAPIView/').done(function(data){
 		//$.get('http://ec2-54-205-29-188.compute-1.amazonaws.com/online-order/MenusAPIView/').done(function(data){
 		var d = data;
-		//console.log(data)
+		//console.log(data)on
 		for(var i =0; i < d.length; i++){
 			$('#mani').append('<li><a href="#" id="'+ d[i].id + '"' + 'value="' + d[i].menus_name  + '" >' + d[i].menus_name + '</a></li>');
 		}
@@ -449,9 +479,9 @@
 							title += 'total: $<span class="amount">' + total +'</span></div>';
 
 							title += '<div class="menu-item-details-quantity">';
-							title += '<input type="button" class="input-orderitem-quantity-decrement btn" value="-">';
+							title += '<input type="button" class="input-spinner input-orderitem-quantity-decrement btn" value="-">';
 							title += '<input type="text" class="input-orderitem-quantity" size="2" maxlength="2" name="quantity" value="1" readonly="">';
-							title += '<input type="button" class="input-orderitem-quantity-increment btn" value="+" onclick="" >';
+							title += '<input type="button" class="input-spinner input-orderitem-quantity-increment btn" value="+" onclick="" >';
 
 							modal.find('.modal-title').html(title);
 
@@ -482,6 +512,7 @@
 									res += val.sizes + '($'+ price + ')';
 									res += '</div>'; 
 								});
+								res += '</div>';
 
 								//$('input[type=radio]').get(0).checked = true;
 
