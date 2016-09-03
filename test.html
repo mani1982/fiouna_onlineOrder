@@ -2,12 +2,17 @@
 <html lang="en">
 <head>
 	<meta charset="UTF-8">
-	<title>Title</title>
+	<title>Fiouna online order</title>
 	<!-- Latest compiled and minified CSS -->
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
 
 	<!-- Optional theme -->
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap-theme.min.css" integrity="sha384-fLW2N01lMqjakBkx3l/M9EahuwpSfeNvV63J5ezn3uZzapT0u7EYsXMjQV+0En5r" crossorigin="anonymous">
+
+	<link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css"  rel="stylesheet">
+
+	<link rel="stylesheet" type="text/css" href="login_modal/login.css">
+	<link rel="stylesheet" href="css/style.css">
 
 	<!-- Latest compiled and minified JavaScript 
 	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script> -->
@@ -16,6 +21,11 @@
 	<!--script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script-->
 	<!-- Latest compiled and minified JavaScript -->
 	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>
+	<!--script src='https://s3-us-west-2.amazonaws.com/s.cdpn.io/121761/card.js'></script-->
+	<script src='https://s3-us-west-2.amazonaws.com/s.cdpn.io/121761/jquery.card.js'></script>
+	<!--script src="js/index.js"></script-->
+
+
 
 	<style type="text/css">
 		/*
@@ -177,7 +187,6 @@ form .btn {padding: 12px 24px;}
 <body>
 	<!-- Menu items. -->
 	<div id="menu-items-details" class="modal fade" tabindex="-1" role="dialog" data-displayed-menu-item-id="" > 
-
 		<div id="menu-items-details-wrapper" class="modal-dialog">
 			<form class="form-horizontal addTocart" method="" action="" autocomplete="off" name="addTocart" onsubmit="event.preventDefault();" >
 				<div id="menu-items-details-content" class="modal-content">
@@ -185,23 +194,322 @@ form .btn {padding: 12px 24px;}
 						<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
 						<div class="modal-title" id="mTitle"></div>                   
 					</div>
-
 					<div class="modal-body">
-
-
-
 					</div>
 					<div class="modal-footer">
 						<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
 						<button type="submit" class="btn btn-primary">Add to Cart</button>
 					</div>
-
 				</div>
 			</form>   
+		</div>
+	</div>
 
+
+
+	<div id="signin-signup" class="modal fade" tabindex="-1" role="dialog" >
+		<div class="container">
+			<div class="row">
+				<div class="col-md-4"></div>
+				<div class="col-md-4">
+					<div class="flip">
+						<div class="card"> 
+							<div class="face front"> 
+								<div class="panel panel-default">
+									<div class="modal-header">
+									<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+									</div>
+									<form id="signin-signup-form" class="form-horizontal">
+										<br>
+										<h1 class="text-center">LOGO</h1>
+										<br>
+										<input class="form-control" name="email" placeholder="Email"/>
+										<input class="form-control" type="password" name="password" placeholder="Password"/>
+										<p class="text-right"><a href="">Forgot Password</a></p>
+										<button id="log-in" class="btn btn-primary btn-block">LOG IN</button>
+										<p class="text-center">
+											<a href="#" class="fliper-btn">Create new account?</a>
+										</p>
+									</form>
+								</div>
+							</div> 
+							<div class="face back"> 
+								<div class="panel panel-default">
+									<form class="form-horizontal">
+										<br>
+										<h1 class="text-center">LOGO</h1>
+										<br>
+										<label>Basic Information</label>
+										<input class="form-control" placeholder="Fullname"/>
+										<input class="form-control" placeholder="Email"/>
+										<label>Private Information</label>
+										<input class="form-control" placeholder="Password"/>
+										<input class="form-control" placeholder="Mobile Number"/>
+										<button class="btn btn-primary btn-block">SIGN UP</button>
+										<p class="text-center">
+											<a href="#" class="fliper-btn">Already have an account?</a>
+										</p>
+									</form>
+								</div>
+							</div>
+						</div>   
+					</div>
+				</div>
+				<!--div class="col-md-4"></div -->
+			</div>
+		</div><!-- /.container -->		
+	</div>
+
+	<div id="checkout-modal" class="modal fade" tabindex="-1" role="dialog" >
+	<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+		<form id="checkout-modal-form">
+			<div class="form-container">
+				<div class="personal-information">
+					<h1>Payment Information</h1>
+				</div> <!-- end of personal-information -->
+				<div id="1">
+					<input id="first-name" class="column-left" type="text" required="required" name="firstname" placeholder="First Name"/>
+
+					<input id="last-name" class="column-right" type="text" name="lastname" placeholder="last-name" required="required"/>
+
+					<input id="phone" type="tel" pattern="[0-9]{10}" name="Telephone" required="required" autocomplete="on" maxlength="10" placeholder="Phone Number"/>
+
+					<input id="email" class="input-field" type="email" name="email" required="required" autocomplete="on" maxlength="40" placeholder="Email"/>
+				</div>
+
+				<div id="2" style="display:none">
+					<div id="delivery_option">
+						<select id="delivery_option_selection">
+							<option id="pickup" name="pickup" value="pickup">
+								pickup
+							</option>
+
+							<option id="delivery" name="delivery" value="delivery">
+								delivery
+							</option>
+						</select>
+					</div>
+					
+					<div id="address" style="display:none">
+					<!--input id="address1" class="input-field" type="text" name="address1" required="required" autocomplete="on" maxlength="45" placeholder="Streed Address"/>
+
+					<input id="address2" class="input-field" type="text" name="address2" required="required" autocomplete="on" maxlength="45" placeholder="Streed Address2"/>
+
+					<input id="city" class="column-left" type="text" name="city" required="required" autocomplete="on" maxlength="20" placeholder="City"/>
+
+					<input id="zipcode" class="column-right" type="text" name="zipcode" required="required" autocomplete="on" pattern="[0-9]*" maxlength="5" placeholder="ZIP code"/ -->
+
+					</div>
+				</div>
+
+
+				<div id="3" style="display:none">
+
+				<div id="payment_option">
+						<select id="payment_option_selection">
+							<option id="cash" name="cash" value="Cash">
+								Cash
+							</option>
+
+							<option id="creditcard" name="creditcard" value="creditcard">
+								creditcard
+							</option>
+						</select>
+					</div>
+					
+					<div id="payment" style="display:none">
+						<!--div class="card-wrapper"></div>
+						<input class="column-left" type="text" name="first-name" placeholder="First Name" required="required"/>
+
+						<input class="column-right" type="text" name="last-name" placeholder="Surname" required="required"/>
+
+						<input class="input-field" type="text" name="number" placeholder="Card Number" required="required"/>
+
+						<input class="column-left" type="text" name="expiry" placeholder="MM / YY" required="required"/>
+
+						<input class="column-right" type="text" name="cvc" placeholder="CCV" required="required"/ -->
+					</div>
+
+					<input id="final-checkout" class="input-button" type="submit" value="Submit" />
+
+				</div>
+				
+
+				<input id="pre" type="button" value="pre" style="display:none" />
+				<input id="next" type="button" value="next" page-id="1"/>
+				<script type="text/javascript">
+
+					$('#delivery_option').on('change', function(e){
+						if($('#delivery_option_selection option:selected').val() == 'delivery'){
+							var addressTemplate = 
+							'<input id="address1" class="input-field" type="text" name="address1" required="required" autocomplete="on" maxlength="45" placeholder="Streed Address"/>' +
+
+							'<input id="address2" class="input-field" type="text" name="address2" required="required" autocomplete="on" maxlength="45" placeholder="Streed Address2"/>' +
+
+							'<input id="city" class="column-left" type="text" name="city" required="required" autocomplete="on" maxlength="20" placeholder="City"/>' +
+
+							'<input id="zipcode" class="column-right" type="text" name="zipcode" required="required" autocomplete="on" pattern="[0-9]*" maxlength="5" placeholder="ZIP code"/>';
+
+							$('#address').append(addressTemplate);
+
+							$('#address').css("display","");
+						}else{
+							$('#address').empty();
+							$('#address').css("display","none");
+						}
+					});
+
+					$('#payment_option').on('change', function(e){
+						e.preventDefault();
+						if($('#payment_option_selection option:selected').val() == 'creditcard'){
+							var creditcardTemplate = '<div class="card-wrapper"></div>' +
+							'<input class="column-left" type="text" name="first-name" placeholder="First Name" required="required"/>' +
+							'<input class="column-right" type="text" name="last-name" placeholder="Surname" required="required"/>' +
+							'<input class="input-field" type="text" name="number" placeholder="Card Number" required="required"/>' +
+							'<input class="column-left" type="text" name="expiry" placeholder="MM / YY" required="required"/>' +
+							'<input class="column-right" type="text" name="cvc" placeholder="CCV" required="required"/>';
+							$('#payment').append(creditcardTemplate);
+
+							/* Card.js plugin by Jesse Pollak. https://github.com/jessepollak/card */
+
+							$('#checkout-modal-form').card({
+								container: '.card-wrapper',
+								width: 280,
+
+								formSelectors: {
+									nameInput: 'input[name="first-name"], input[name="last-name"]'
+								}
+							});
+
+
+							$('#payment').css("display","");
+						}else{
+							$('#payment').empty();
+							$('#payment').css("display","none");
+						}
+					});
+
+					$('#next').on('click', function(e){
+						e.preventDefault();
+
+						var current_page = $(this).attr("page-id"),
+						next_page = parseInt(current_page) + 1;
+						//console.log(current_page);
+						if(current_page ==1 && ($('#first-name').val()=="" || $('#last-name').val() == "" || $('#phone').val() == "" || $('#email').val() == "") ){
+
+							if($('#first-name').val() == ""){
+
+								$('#first-name').css("border","thick solid red");
+							}else{
+								$('#first-name').css("border","");
+							}
+
+							if($('#last-name').val() == ""){
+
+								$('#last-name').css("border","thick solid red");
+							}else{
+								$('#last-name').css("border","");
+							}
+
+							if($('#phone').val() == ""){
+
+								$('#phone').css("border","thick solid red");
+							}else{
+								$('#phone').css("border","");
+							}
+
+							if($('#email').val() == ""){
+
+								$('#email').css("border","thick solid red");
+							}else{
+								$('#email').css("border","");
+							}
+
+							return
+						}
+
+						if(current_page == 2 && ($('#delivery_option_selection option:selected').val() == 'delivery')){
+							//$('#address2').val()=="" ||
+							if($('#address1').val()=="" || $('#city').val()=="" || $('#zipcode').val()==""){
+
+								if($('#address1').val() == ""){
+
+									$('#address1').css("border","thick solid red");
+								}
+								else{
+									$('#address1').css("border","");
+								}
+
+								// if($('#address2').val() == ""){
+
+								// 	$('#address2').css("border","thick solid red");
+								// }
+								// else{
+								// 	$('#address2').css("border","");
+								// }
+
+								if($('#city').val() == ""){
+
+									$('#city').css("border","thick solid red");
+								}
+								else{
+									$('#city').css("border","");
+								}
+
+								if($('#zipcode').val() == ""){
+
+									$('#zipcode').css("border","thick solid red");
+								}
+								else{
+									$('#zipcode').css("border","");
+								}
+
+								return
+							}
+
+							
+						}
+
+						console.log("10")
+
+						$('#' + current_page).css("display","none");
+						$('#' + next_page).css("display","");
+						$('#pre').css("display","").attr("last-page-id", current_page);
+						$(this).attr("page-id",next_page);
+
+						if($(this).attr("page-id") == 3){
+							$(this).css("display","none");
+						}else{
+							$(this).css("display","");
+						}
+					});
+
+					$('#pre').on('click', function(e){
+						var last_page_id = $('#pre').attr('last-page-id');
+						var current_page_id = parseInt(last_page_id) + 1
+						$('#'+ last_page_id).css("display","");
+						$('#'+ current_page_id).css("display","none");
+						$(this).attr("last-page-id",parseInt(last_page_id) - 1);
+						$('#next').attr("page-id",last_page_id);
+						if($('#next').css('display') == 'none'){
+							$('#next').css('display',"");
+						}
+						if(last_page_id == 1){
+							$('#pre').css("display","none").attr("last-page-id","1");
+							$(this).attr("last-page-id","");
+						}
+
+					});
+
+				</script>
+
+				</div>
+			</form>
 		</div>
 
-	</div> 
+
+
+
 <!--div class="jumbotron">
 		<div class="container">
 			<h1>Hello, world!</h1>
@@ -211,29 +519,37 @@ form .btn {padding: 12px 24px;}
 		</div>
 	</div-->
 	<nav class="navbar navbar-inverse navbar-fixed-top">
-	  <div class="container-fluid">
-		<div class="navbar-header">
-		  <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
-			<span class="sr-only">Toggle navigation</span>
-			<span class="icon-bar"></span>
-			<span class="icon-bar"></span>
-			<span class="icon-bar"></span>
-		</button>
-		<a class="navbar-brand" href="#">Project name</a>
-	</div>
-	<div id="navbar" class="navbar-collapse collapse">
-	  <ul class="nav navbar-nav navbar-right">
-		<li><a href="#">Dashboard</a></li>
-		<li><a href="#">Settings</a></li>
-		<li><a href="#">Profile</a></li>
-		<li><a href="#">Help</a></li>
-	</ul>
-	<form class="navbar-form navbar-right">
-		<input type="text" class="form-control" placeholder="Search...">
-	</form>
-</div>
-</div>
-</nav>
+	  	<div class="container-fluid">
+			<div class="navbar-header">
+			  <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+				<span class="sr-only">Toggle navigation</span>
+				<span class="icon-bar"></span>
+				<span class="icon-bar"></span>
+				<span class="icon-bar"></span>
+			</button>
+			<a class="navbar-brand" href="#">Fiouna Online Order</a>
+			</div>
+			<div id="navbar" class="navbar-collapse collapse">
+			  	<ul class="nav navbar-nav navbar-right">
+					<li id="login" data-toggle = "modal" data-target="#signin-signup"><a href="#">Login/register</a></li>
+					<li id="user-logedin" class="dropdown" style="display: none;">
+						<a id="userLoginName" href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+							<span class="caret"></span>
+						</a>
+						<ul class="dropdown-menu" id="menu1" aria-labelledby="drop4"> 
+							<li><a id="pastOrder" href="#">Past Order</a></li> 
+							<li><a href="#">Another action</a></li> 
+							<li><a href="#">Something else here</a></li> 
+							<li role="separator" class="divider"></li> 
+							<li><a id="logout" href="#">Logout</a></li> 
+						</ul>
+
+					</li>
+
+				</ul>
+			</div>
+		</div>
+	</nav>
 <div class="container-fluid">
 	<div class="row">
 		<div class="col-sm-3 col-md-2 sidebar">
@@ -346,7 +662,8 @@ form .btn {padding: 12px 24px;}
 				<div id="shopping-cart-bottom-cap"></div>
 
 
-				<a id="online-order-checkout-button" href="#" class="btn btn-large btn-primary">Checkout</a>
+				<a id="online-order-checkout-button" href="#" class="btn btn-large btn-primary" data-toggle="modal"
+				data-target="#checkout-modal">Checkout</a>
 
 
 				<p class="gray" style="text-align: center;padding-top:20px;">
@@ -360,6 +677,8 @@ form .btn {padding: 12px 24px;}
 </div>
 
 </body>
+
+<script type="text/javascript" src="login_modal/login.js"></script>
 <script>
 	$(document).ready(function (){
 
@@ -441,7 +760,11 @@ form .btn {padding: 12px 24px;}
 			}
 		});
 
-
+		$("#login").on("click", function(event){
+			$('#signin-signup').on('shown.bs.modal', function (event) {
+				$('#signin-signup').focus()
+			})
+		});
 
 		$('#menu-items-details').on('show.bs.modal', function (event) {
 			var button = $(event.relatedTarget);
@@ -681,6 +1004,7 @@ form .btn {padding: 12px 24px;}
 		// a main object for check out process
 		var checkout = {};
 		checkout.dishes = [];
+		checkout.user = {};
 
 		function saveCart() {
 			//console.log(JSON.stringify(checkout));
@@ -704,12 +1028,13 @@ form .btn {padding: 12px 24px;}
 				console.log('yes');
 				checkout = {};
 				checkout.dishes = [];
+				checkout.user = {};
 				console.log(checkout);
 			}
 			if(checkout.dishes !== undefined && checkout !== null ){
 				console.log('main5');
 
-				console.log(checkout.dishes);
+				console.log(checkout);
 				updateshoppingcart(checkout.dishes);
 			}
 		}
@@ -722,7 +1047,11 @@ form .btn {padding: 12px 24px;}
 		// setTimeout(function(){
 		// 	console.log('clear');
 		// 	window.localStorage.clear();
-		// }, 200000);
+		// }, 200);
+
+		var deletedata = function(){
+			window.localStorage.clear();
+		}
 
 
 
@@ -746,7 +1075,7 @@ form .btn {padding: 12px 24px;}
 			console.log(checkout);
 			checkout.dishes.push(dish);
 			updateshoppingcart(checkout.dishes);
-			$('.modal').modal('toggle');
+			$('#menu-items-details').modal('toggle');
 		});
 
 		
@@ -873,9 +1202,129 @@ form .btn {padding: 12px 24px;}
             });		
 		}
 
+
+
+		var ckeckout = function(){
+			//$('#online-order-checkout-button').on("click", function(event){
+
+				//$('#checkout-modal').modal('toggle');
+
+				// $('#checkout-modal').on('shown.bs.modal', function (event) {
+				// 	$('#checkout-modal').focus();
+				// });
+				// console.log(checkout);
+				// $.ajax({
+				// 	url: 'http://127.0.0.1:8000/online-order/submitAPIView',
+				// 	type: 'POST',
+				// 	dataType: 'text',
+				// 	data: checkout,
+				// 	// beforeSend: function( xhr ) {
+				// 	// 	//xhr.overrideMimeType( "text/plain; charset=x-user-defined" );
+				// 	// 	confirm("yes?");
+				// 	// }
+				// }).success(function(data){
+				// 	console.log(data);
+				// }).error(function(jqXHR, errorText, thrownError) {
+				// 	alert(thrownError);
+				// });
+			//});
+		}
+		ckeckout();
+
+		$("#signin-signup-form").submit(function(e){
+			e.preventDefault();
+			input_fields = $(this).serializeArray();
+			credentioal = {};
+			$(input_fields).each(function(index, obj){
+				credentioal[obj.name] = obj.value;
+			} );
+			//console.log(credentioal.email);
+			$.ajax({
+				url: 'http://127.0.0.1:8000/users/login/',
+				type: 'POST',
+				dataType: 'text',
+				data: credentioal,
+				beforeSend: function( xhr ) {
+						//xhr.overrideMimeType( "text/plain; charset=x-user-defined" );
+						//confirm("yes?");
+						xhr.setRequestHeader("Authorization", "Basic " + btoa(credentioal.email + ':' + credentioal.password));
+					},
+				}).success(function(data){
+					//console.log(jQuery.parseJSON(data));
+					result = jQuery.parseJSON(data)
+					$("#user-logedin").css("display","");
+					$("#userLoginName").text(result.first_name);
+					$("#login").css("display","none");
+					$('#signin-signup').modal('toggle');
+					// var userinfo = {};
+					// $.each(result,function(key,val){
+					// 	//console.log(key, " : ", val );
+					// 	userinfo[key] = val;
+					// });
+
+					$('#first-name').val(result.first_name);
+					$('#last-name').val(result.last_name);
+					$('#email').val(result.email);
+					
+					//checkout.user.push(result);
+
+					for(var d in result){
+						console.log(d, "  :", result[d]);
+						checkout.user[d] = result[d];
+					}
+					saveCart();
+					
+					//checkout.
+					// $("#user-logedin").on('click', function(e){
+					// 	$.post('http://127.0.0.1:8000/users/logout/');
+					// });
+				}).error(function(data) {
+					console.log(data);
+				});
+		});
+
+		setTimeout(function(){
+			//&& checkout.user.length != 0
+			console.log(jQuery.isEmptyObject(checkout.user)); 
+			if(!jQuery.isEmptyObject(checkout.user) && checkout.user != undefined){
+				$("#login").css("display","none");
+				$("#user-logedin").css("display","");
+				 $("#userLoginName").text(checkout.user.first_name);
+
+				 $('#first-name').val(checkout.user.first_name);
+				 $('#last-name').val(checkout.user.last_name);
+				 $('#email').val(checkout.user.email);
+
+			}
+		}	, 500);
+
+		$('#logout').on('click', function(e){
+			deletedata();
+			location.reload();
+		});
+
+		// function getCookie(name) {
+		// 	var cookieValue = null;
+		// 	if (document.cookie && document.cookie !== '') {
+		// 		var cookies = document.cookie.split(';');
+		// 		for (var i = 0; i < cookies.length; i++) {
+		// 			var cookie = jQuery.trim(cookies[i]);
+		//             // Does this cookie string begin with the name we want?
+		//             if (cookie.substring(0, name.length + 1) === (name + '=')) {
+		//             	cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+		//             	break;
+		//             }
+		//         }
+		//     }
+		//     return cookieValue;
+		// }
+		// var csrftoken = getCookie('csrftoken');
+
 		// setTimeout(function(){
 		// 	console.log(checkout);
 		// }	, 500);
+
+
 
 
 
