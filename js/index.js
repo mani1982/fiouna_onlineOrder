@@ -1,6 +1,6 @@
 /* Card.js plugin by Jesse Pollak. https://github.com/jessepollak/card */
 
-$('form').card({
+$('#payment').card({
     container: '.card-wrapper',
     width: 280,
 

@@ -23,50 +23,88 @@
 	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>
 	<!--script src='https://s3-us-west-2.amazonaws.com/s.cdpn.io/121761/card.js'></script-->
 	<script src='https://s3-us-west-2.amazonaws.com/s.cdpn.io/121761/jquery.card.js'></script>
-	<!--script src="js/index.js"></script-->
+
+	<!-- Load the required client component. -->
+	<script src="https://js.braintreegateway.com/web/3.2.0/js/client.min.js"></script>
+	<script src="https://js.braintreegateway.com/web/3.2.0/js/paypal.min.js"></script>
+	<script src="https://js.braintreegateway.com/web/3.2.0/js/hosted-fields.min.js"></script>
+	<script src="https://js.braintreegateway.com/web/3.2.0/js/data-collector.min.js"></script>
+
+	<script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBX5_8mDxj0Gs9Dzb6lgyaJYjUwvvyEtgk"></script>
 
 
 
-	<style type="text/css">
-		/*
- * Base structure
- */
+		<style type="text/css">
+			/*
+	 * Base structure
+	 */
 
- /* Move down content because we have a fixed navbar that is 50px tall */
- body {
-	padding-top: 50px;
-}
+	 /* Move down content because we have a fixed navbar that is 50px tall */
+	 body {
+	 	padding-top: 50px;
+	 }
 
 
-/*
- * Global add-ons
- */
+	/*
+	 * Global add-ons
+	 */
 
- .sub-header {
-	padding-bottom: 10px;
-	border-bottom: 1px solid #eee;
-}
+	 .sub-header {
+	 	padding-bottom: 10px;
+	 	border-bottom: 1px solid #eee;
+	 }
 
-/*
- * Top navigation
- * Hide default border to remove 1px line.
- */
- .navbar-fixed-top {
-	border: 0;
-}
+	/*
+	 * Top navigation
+	 * Hide default border to remove 1px line.
+	 */
+	 .navbar-fixed-top {
+	 	border: 0;
+	 }
 
-/*
- * Sidebar
- */
+	/*
+	 * Sidebar
+	 */
 
- /* Hide for mobile, show later */
-/* .sidebar {
-	display: none;
-}*/
-@media (min-width: 768px) {
-	.sidebar {
-		position: fixed;
-		top: 51px;
+	 /* Hide for mobile, show later */
+	/* .sidebar {
+		display: none;
+	}*/
+	@media (min-width: 768px) {
+		.sidebar {
+			position: fixed;
+			top: 51px;
+			bottom: 0;
+			left: 0;
+			z-index: 1000;
+			display: block;
+			padding: 20px;
+			overflow-x: hidden;
+			overflow-y: auto; /* Scrollable contents if viewport is shorter than content. */
+			background-color: #f5f5f5;
+			border-right: 1px solid #eee;
+		}
+	}
+
+	/* Sidebar navigation */
+	.nav-sidebar {
+		margin-right: -21px; /* 20px padding + 1px border */
+		margin-bottom: 20px;
+		margin-left: -20px;
+	}
+	.nav-sidebar > li > a {
+		padding-right: 20px;
+		padding-left: 20px;
+	}
+	.nav-sidebar > .active > a,
+	.nav-sidebar > .active > a:hover,
+	.nav-sidebar > .active > a:focus {
+		color: #fff;
+		background-color: #428bca;
+	}
+
+	.checkout_sidebar{
+		top: 10px;
 		bottom: 0;
 		left: 0;
 		z-index: 1000;
@@ -74,113 +112,102 @@
 		padding: 20px;
 		overflow-x: hidden;
 		overflow-y: auto; /* Scrollable contents if viewport is shorter than content. */
+
 		background-color: #f5f5f5;
-		border-right: 1px solid #eee;
+		border-left: 1px solid #eee; 
 	}
-}
+	/*
+	 * Main content
+	 */
 
-/* Sidebar navigation */
-.nav-sidebar {
-	margin-right: -21px; /* 20px padding + 1px border */
-	margin-bottom: 20px;
-	margin-left: -20px;
-}
-.nav-sidebar > li > a {
-	padding-right: 20px;
-	padding-left: 20px;
-}
-.nav-sidebar > .active > a,
-.nav-sidebar > .active > a:hover,
-.nav-sidebar > .active > a:focus {
-	color: #fff;
-	background-color: #428bca;
-}
-
-.checkout_sidebar{
-	top: 10px;
-	bottom: 0;
-	left: 0;
-	z-index: 1000;
-	display: block;
-	padding: 20px;
-	overflow-x: hidden;
-	overflow-y: auto; /* Scrollable contents if viewport is shorter than content. */
-
-	background-color: #f5f5f5;
-	border-left: 1px solid #eee; 
-}
-/*
- * Main content
- */
-
- .main {
-	padding: 20px;
-}
-@media (min-width: 768px) {
-	.main {
-		padding-right: 40px;
-		padding-left: 40px;
-	}
-}
-.main .page-header {
-	margin-top: 0;
-}
+	 .main {
+	 	padding: 20px;
+	 }
+	 @media (min-width: 768px) {
+	 	.main {
+	 		padding-right: 40px;
+	 		padding-left: 40px;
+	 	}
+	 }
+	 .main .page-header {
+	 	margin-top: 0;
+	 }
 
 
-/*
- * Placeholder dashboard ideas
- */
+	/*
+	 * Placeholder dashboard ideas
+	 */
 
- .placeholders {
-	margin-bottom: 30px;
-	text-align: center;
-}
-.placeholders h4 {
-	margin-bottom: 0;
-}
-.placeholder {
-	margin-bottom: 20px;
-}
-.placeholder img {
-	display: inline-block;
-	border-radius: 50%;
-}
+	 .placeholders {
+	 	margin-bottom: 30px;
+	 	text-align: center;
+	 }
+	 .placeholders h4 {
+	 	margin-bottom: 0;
+	 }
+	 .placeholder {
+	 	margin-bottom: 20px;
+	 }
+	 .placeholder img {
+	 	display: inline-block;
+	 	border-radius: 50%;
+	 }
 
-.shopping-cart-item .shopping-cart-item-remove:hover {
-    color: red;
-    cursor: pointer;
-}
+	 .shopping-cart-item .shopping-cart-item-remove:hover {
+	 	color: red;
+	 	cursor: pointer;
+	 }
 
-/* modal styles */
-form .modal-title h4 {
-    font-size: 20px;
-    color: #23527c;
-    padding-bottom: 4px;
-    border-bottom: 1px solid #98b6d2;
-}
+	 /* modal styles */
+	 form .modal-title h4 {
+	 	font-size: 20px;
+	 	color: #23527c;
+	 	padding-bottom: 4px;
+	 	border-bottom: 1px solid #98b6d2;
+	 }
 
-form input.input-spinner {
-    height: 2em;
-    margin: -2px 2px 0 2px;
-    padding: 3px 12px;
-}
+	 form input.input-spinner {
+	 	height: 2em;
+	 	margin: -2px 2px 0 2px;
+	 	padding: 3px 12px;
+	 }
 
-form input.input-orderitem-quantity {
-    padding: 2px 4px;
-    text-align: center;
-}
+	 form input.input-orderitem-quantity {
+	 	padding: 2px 4px;
+	 	text-align: center;
+	 }
 
-form .size span {
-	margin: 2px 6px;
-	padding-right: 4px;
-}
+	 form .size span {
+	 	margin: 2px 6px;
+	 	padding-right: 4px;
+	 }
 
-form input[type="checkbox"] {margin: 2px 6px;}
+	 form input[type="checkbox"] {margin: 2px 6px;}
 
-form textarea {margin-top: 12px;}
+	 form textarea {margin-top: 12px;}
 
-form .btn {padding: 12px 24px;}
-</style>
+	 form .btn {padding: 12px 24px;}
+
+	 input#next{
+	 	float: right;
+	 	height: 40px;
+	 	width: 80px;
+	 	margin: 15px;
+	 	padding: 0px;
+	 	text-align: -webkit-center;
+	 	border-radius: 6px;
+	 }
+
+	 input#pre{
+	 	float: left;
+	 	height: 40px;
+	 	width: 80px;
+	 	margin: 15px;
+	 	padding: 0px;
+	 	text-align: -webkit-center;
+	 	border-radius: 6px;
+	 }
+	</style>
 
 <!--script src="static/online_order/index.js"></script-->
 </head>
@@ -260,10 +287,10 @@ form .btn {padding: 12px 24px;}
 		</div><!-- /.container -->		
 	</div>
 
-	<div id="checkout-modal" class="modal fade" tabindex="-1" role="dialog" >
+	<div id="checkout-modal" class="modal fade" tabindex="-1" role="dialog" data-backdrop="true" data-keyboard="true">
 	<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
 		<form id="checkout-modal-form">
-			<div class="form-container">
+	
 				<div class="personal-information">
 					<h1>Payment Information</h1>
 				</div> <!-- end of personal-information -->
@@ -272,7 +299,7 @@ form .btn {padding: 12px 24px;}
 
 					<input id="last-name" class="column-right" type="text" name="lastname" placeholder="last-name" required="required"/>
 
-					<input id="phone" type="tel" pattern="[0-9]{10}" name="Telephone" required="required" autocomplete="on" maxlength="10" placeholder="Phone Number"/>
+					<!-- input id="phone" type="tel" pattern="[0-9]{10}" name="Telephone" required="required" autocomplete="on" maxlength="10" placeholder="Phone Number"/-->
 
 					<input id="email" class="input-field" type="email" name="email" required="required" autocomplete="on" maxlength="40" placeholder="Email"/>
 				</div>
@@ -335,175 +362,10 @@ form .btn {padding: 12px 24px;}
 				</div>
 				
 
-				<input id="pre" type="button" value="pre" style="display:none" />
-				<input id="next" type="button" value="next" page-id="1"/>
-				<script type="text/javascript">
+				<input id="pre" class="btn btn-primary" type="button" value="previous" style="display:none" />
+				<input id="next" class="btn btn-primary" type="button" value="next" page-id="1"/>
 
-					$('#delivery_option').on('change', function(e){
-						if($('#delivery_option_selection option:selected').val() == 'delivery'){
-							var addressTemplate = 
-							'<input id="address1" class="input-field" type="text" name="address1" required="required" autocomplete="on" maxlength="45" placeholder="Streed Address"/>' +
-
-							'<input id="address2" class="input-field" type="text" name="address2" required="required" autocomplete="on" maxlength="45" placeholder="Streed Address2"/>' +
-
-							'<input id="city" class="column-left" type="text" name="city" required="required" autocomplete="on" maxlength="20" placeholder="City"/>' +
-
-							'<input id="zipcode" class="column-right" type="text" name="zipcode" required="required" autocomplete="on" pattern="[0-9]*" maxlength="5" placeholder="ZIP code"/>';
-
-							$('#address').append(addressTemplate);
-
-							$('#address').css("display","");
-						}else{
-							$('#address').empty();
-							$('#address').css("display","none");
-						}
-					});
-
-					$('#payment_option').on('change', function(e){
-						e.preventDefault();
-						if($('#payment_option_selection option:selected').val() == 'creditcard'){
-							var creditcardTemplate = '<div class="card-wrapper"></div>' +
-							'<input class="column-left" type="text" name="first-name" placeholder="First Name" required="required"/>' +
-							'<input class="column-right" type="text" name="last-name" placeholder="Surname" required="required"/>' +
-							'<input class="input-field" type="text" name="number" placeholder="Card Number" required="required"/>' +
-							'<input class="column-left" type="text" name="expiry" placeholder="MM / YY" required="required"/>' +
-							'<input class="column-right" type="text" name="cvc" placeholder="CCV" required="required"/>';
-							$('#payment').append(creditcardTemplate);
-
-							/* Card.js plugin by Jesse Pollak. https://github.com/jessepollak/card */
-
-							$('#checkout-modal-form').card({
-								container: '.card-wrapper',
-								width: 280,
-
-								formSelectors: {
-									nameInput: 'input[name="first-name"], input[name="last-name"]'
-								}
-							});
-
-
-							$('#payment').css("display","");
-						}else{
-							$('#payment').empty();
-							$('#payment').css("display","none");
-						}
-					});
-
-					$('#next').on('click', function(e){
-						e.preventDefault();
-
-						var current_page = $(this).attr("page-id"),
-						next_page = parseInt(current_page) + 1;
-						//console.log(current_page);
-						if(current_page ==1 && ($('#first-name').val()=="" || $('#last-name').val() == "" || $('#phone').val() == "" || $('#email').val() == "") ){
-
-							if($('#first-name').val() == ""){
-
-								$('#first-name').css("border","thick solid red");
-							}else{
-								$('#first-name').css("border","");
-							}
-
-							if($('#last-name').val() == ""){
-
-								$('#last-name').css("border","thick solid red");
-							}else{
-								$('#last-name').css("border","");
-							}
-
-							if($('#phone').val() == ""){
-
-								$('#phone').css("border","thick solid red");
-							}else{
-								$('#phone').css("border","");
-							}
-
-							if($('#email').val() == ""){
-
-								$('#email').css("border","thick solid red");
-							}else{
-								$('#email').css("border","");
-							}
-
-							return
-						}
-
-						if(current_page == 2 && ($('#delivery_option_selection option:selected').val() == 'delivery')){
-							//$('#address2').val()=="" ||
-							if($('#address1').val()=="" || $('#city').val()=="" || $('#zipcode').val()==""){
-
-								if($('#address1').val() == ""){
-
-									$('#address1').css("border","thick solid red");
-								}
-								else{
-									$('#address1').css("border","");
-								}
-
-								// if($('#address2').val() == ""){
-
-								// 	$('#address2').css("border","thick solid red");
-								// }
-								// else{
-								// 	$('#address2').css("border","");
-								// }
-
-								if($('#city').val() == ""){
-
-									$('#city').css("border","thick solid red");
-								}
-								else{
-									$('#city').css("border","");
-								}
-
-								if($('#zipcode').val() == ""){
-
-									$('#zipcode').css("border","thick solid red");
-								}
-								else{
-									$('#zipcode').css("border","");
-								}
-
-								return
-							}
-
-							
-						}
-
-						console.log("10")
-
-						$('#' + current_page).css("display","none");
-						$('#' + next_page).css("display","");
-						$('#pre').css("display","").attr("last-page-id", current_page);
-						$(this).attr("page-id",next_page);
-
-						if($(this).attr("page-id") == 3){
-							$(this).css("display","none");
-						}else{
-							$(this).css("display","");
-						}
-					});
-
-					$('#pre').on('click', function(e){
-						var last_page_id = $('#pre').attr('last-page-id');
-						var current_page_id = parseInt(last_page_id) + 1
-						$('#'+ last_page_id).css("display","");
-						$('#'+ current_page_id).css("display","none");
-						$(this).attr("last-page-id",parseInt(last_page_id) - 1);
-						$('#next').attr("page-id",last_page_id);
-						if($('#next').css('display') == 'none'){
-							$('#next').css('display',"");
-						}
-						if(last_page_id == 1){
-							$('#pre').css("display","none").attr("last-page-id","1");
-							$(this).attr("last-page-id","");
-						}
-
-					});
-
-				</script>
-
-				</div>
+				
 			</form>
 		</div>
 
@@ -653,7 +515,7 @@ form .btn {padding: 12px 24px;}
 
 					<!-- Delivery fee explanation -->
 
-					<br><div style="text-align: right;"><a href="/trattoria-newbury-boston/menu">(Change)</a></div>
+					<br><div style="text-align: right;"><a href="#">(Change)</a></div>
 
 				</div>
 
@@ -892,7 +754,7 @@ form .btn {padding: 12px 24px;}
 
 							$('.modal-body input[type=radio]:first').attr('checked', true);
 
-							EvenHandler();
+							EventHandler();
 							//updateTotalModalPrice();
 
 							return false;
@@ -907,7 +769,7 @@ form .btn {padding: 12px 24px;}
 
 		});
 
-		var EvenHandler = function(){
+		var EventHandler = function(){
 
 			$('.modal-body .size').on('change', function(event){
 				$('.modal-body').find('.size').each(function() {
@@ -1005,6 +867,8 @@ form .btn {padding: 12px 24px;}
 		var checkout = {};
 		checkout.dishes = [];
 		checkout.user = {};
+		checkout.delivery = 0;
+		checkout.final= {};
 
 		function saveCart() {
 			//console.log(JSON.stringify(checkout));
@@ -1029,13 +893,14 @@ form .btn {padding: 12px 24px;}
 				checkout = {};
 				checkout.dishes = [];
 				checkout.user = {};
+				checkout.final= {};
 				console.log(checkout);
 			}
-			if(checkout.dishes !== undefined && checkout !== null ){
+			if(checkout.dishes !== undefined && checkout !== null){
 				console.log('main5');
 
 				console.log(checkout);
-				updateshoppingcart(checkout.dishes);
+				updateshoppingcart();
 			}
 		}
 
@@ -1074,7 +939,7 @@ form .btn {padding: 12px 24px;}
 			});
 			console.log(checkout);
 			checkout.dishes.push(dish);
-			updateshoppingcart(checkout.dishes);
+			updateshoppingcart();
 			$('#menu-items-details').modal('toggle');
 		});
 
@@ -1082,7 +947,7 @@ form .btn {padding: 12px 24px;}
 
 
 
-		var updateshoppingcart = function(addeddish){
+		var updateshoppingcart = function(){
 			
 			
 			$('#shopping-cart-items tbody').empty();
@@ -1091,7 +956,7 @@ form .btn {padding: 12px 24px;}
 			//$('.table table-condensed tbody').empty();
 
 
-			var item_row = '',total_row ='', subtotal = 0, total = 0, tax = 0, taxrates = 0;
+			var item_row = '',total_row ='', subtotal = 0, total = 0, tax = 0, taxrates = 7, delivery = 0.00;
 
 			//console.log(checkout);
 
@@ -1134,42 +999,72 @@ form .btn {padding: 12px 24px;}
 
 			});
 
-			var taxurl = 'https://taxrates.api.avalara.com/postal?country=usa&postal=02215&apikey=mWHZkdof4fEYM9gAXhLtaOUnplWIsqQUNHY52Mb8tamVkBSrXTojxDnTML3P2PYtQ9XuIgNOyPeet8bkaJQEBA%3D%3D'; 
+			//var taxurl ='https://taxrates.api.avalara.com/postal?country=usa&postal=02215&apikey=mWHZkdof4fEYM9gAXhLtaOUnplWIsqQUNHY52Mb8tamVkBSrXTojxDnTML3P2PYtQ9XuIgNOyPeet8bkaJQEBA%3D%3D'; 
 
 				//console.log(subtotal.toFixed(2));
 				checkout.subtotal = subtotal;
 
-				$.get(taxurl).done(function(data){
-					//console.log(data);
-					taxrates = parseFloat(data.totalRate);
-					//console.log(taxrates);
+				if(checkout.delivery == undefined){
+					checkout.delivery=0.00;
+				}
+				delivery = parseFloat(checkout.delivery);
+				console.log(checkout.delivery);
 
-					// console.log(subtotal);
-					// console.log(taxrates);
-					tax = (subtotal * taxrates) / 100;
-					total = subtotal + tax;
-					//console.log(tax);
+				// $.get(taxurl).done(function(data){
+				// 	console.log(data);
+				// 	taxrates = parseFloat(data.totalRate);
+				// 	console.log(taxrates);
 
-					total_row += '<tr id="shopping-cart-subtotal-row" class="shopping-cart-total-row">';
-					total_row += '<td class="shopping-cart-total-label">Subtotal:</td>';
-					total_row += '<td class="shopping-cart-total">' + subtotal.toFixed(2) +'</td></tr>';
+				// 	// console.log(subtotal);
+				// 	// console.log(taxrates);
+				// 	tax = (subtotal * taxrates) / 100;
+				// 	total = subtotal + tax;
+				// 	//console.log(tax);
 
-					total_row += '<tr id="shopping-cart-taxtotal-row" class="shopping-cart-total-row">';
-					total_row += '<td class="shopping-cart-total-label">Tax:</td>';
-					total_row += '<td class="shopping-cart-total">' + tax.toFixed(2) +'</td></tr>';
+				// 	total_row += '<tr id="shopping-cart-subtotal-row" class="shopping-cart-total-row">';
+				// 	total_row += '<td class="shopping-cart-total-label">Subtotal:</td>';
+				// 	total_row += '<td class="shopping-cart-total">' + subtotal.toFixed(2) +'</td></tr>';
 
-					total_row += '<tr id="shopping-cart-grandtotal-row" class="shopping-cart-total-row">';
-					total_row += '<td id="shopping-cart-grand-total-label" class="shopping-cart-total-label">Total:</td>';
-					total_row += '<td id="shopping-cart-grand-total" class="shopping-cart-total">' + total.toFixed(2) +'</td></tr>';
+				// 	total_row += '<tr id="shopping-cart-taxtotal-row" class="shopping-cart-total-row">';
+				// 	total_row += '<td class="shopping-cart-total-label">Tax:</td>';
+				// 	total_row += '<td class="shopping-cart-total">' + tax.toFixed(2) +'</td></tr>';
 
-					checkout.total = total;
+				// 	total_row += '<tr id="shopping-cart-grandtotal-row" class="shopping-cart-total-row">';
+				// 	total_row += '<td id="shopping-cart-grand-total-label" class="shopping-cart-total-label">Total:</td>';
+				// 	total_row += '<td id="shopping-cart-grand-total" class="shopping-cart-total">' + total.toFixed(2) +'</td></tr>';
+
+				// 	checkout.total = total;
 
 
-					$('#shopping-cart-totals tbody').append(total_row);
-				});
+				// 	$('#shopping-cart-totals tbody').append(total_row);
+				// });
+
+				tax = (subtotal * taxrates) / 100;
+				total = subtotal + tax + delivery;
+
+				total_row += '<tr id="shopping-cart-subtotal-row" class="shopping-cart-total-row">';
+				total_row += '<td class="shopping-cart-total-label">Subtotal:</td>';
+				total_row += '<td class="shopping-cart-total">' + subtotal.toFixed(2) +'</td></tr>';
+
+				total_row += '<tr id="shopping-cart-taxtotal-row" class="shopping-cart-total-row">';
+				total_row += '<td class="shopping-cart-total-label">Tax:</td>';
+				total_row += '<td class="shopping-cart-total">' + tax.toFixed(2) +'</td></tr>';
+
+				total_row += '<tr id="shopping-cart-delivery-row" class="shopping-cart-total-row">';
+				total_row += '<td class="shopping-cart-total-label">delivery:</td>';
+				total_row += '<td class="shopping-cart-total" id="delivery">' + delivery.toFixed(2) +'</td></tr>';
+
+				total_row += '<tr id="shopping-cart-grandtotal-row" class="shopping-cart-total-row">';
+				total_row += '<td id="shopping-cart-grand-total-label" class="shopping-cart-total-label">Total:</td>';
+				total_row += '<td id="shopping-cart-grand-total" class="shopping-cart-total">' + total.toFixed(2) +'</td></tr>';
+
+				checkout.total = total;
 
 
-			$('#shopping-cart-items tbody').append(item_row);
+				$('#shopping-cart-totals tbody').append(total_row);
+
+
+				$('#shopping-cart-items tbody').append(item_row);
 			
 			setShoppingCartEventHandlers();
 			saveCart();
@@ -1196,15 +1091,209 @@ form .btn {padding: 12px 24px;}
 
                 console.log('after');
                 console.log(checkout.dishes);
-                updateshoppingcart(checkout.dishes);
+                updateshoppingcart();
                 
                 event.stopPropagation();
             });		
 		}
 
 
-
+			// $('#checkout-modal').on('hide.bs.modal', function(e){
+			// 	$('#checkout-modal-form').trigger("reset");
+			// });
 		var ckeckout = function(){
+
+			$('#delivery_option').on('change', function(e){
+				if($('#delivery_option_selection option:selected').val() == 'delivery'){
+					var addressTemplate = 
+					'<input id="address1" class="input-field" type="text" name="address1" required="required" autocomplete="on" maxlength="45" placeholder="Streed Address"/>' +
+
+					'<input id="address2" class="input-field" type="text" name="address2"  autocomplete="on" maxlength="45" placeholder="Streed Address2"/>' +
+
+					'<input id="city" class="column-left" type="text" name="city" required="required" autocomplete="on" maxlength="20" placeholder="City"/>' +
+
+					'<input id="zipcode" class="column-right" type="text" name="zipcode" required="required" autocomplete="on" pattern="[0-9]*" maxlength="5" placeholder="ZIP code"/>' +
+					'<input id="phone" type="tel" pattern="[0-9]{10}" name="Telephone" required="required" autocomplete="on" maxlength="10" placeholder="Phone Number"/>';
+
+					$('#address').append(addressTemplate);
+
+					$('#address').css("display","");
+				}else{
+					$('#address').empty();
+					$('#address').css("display","none");
+				}
+			});
+
+			$('#payment_option').on('change', function(e){
+				e.preventDefault();
+				if($('#payment_option_selection option:selected').val() == 'creditcard'){
+					var creditcardTemplate = '<div class="form-container"><div class="card-wrapper"></div>' +
+					'<input type="hidden" name="payment-method-nonce">' +
+					'<input class="column-left" type="text" name="first-name" placeholder="First Name" required="required"/>' +
+					'<input class="column-right" type="text" name="last-name" placeholder="Surname" required="required"/>' +
+					'<div class="hosted-field" id="card-number"></div>' +
+  					'<div class="hosted-field" id="cvv"></div>' + 
+  					'<div class="hosted-field" id="expiration-date"></div>' +
+  					'<div class="hosted-field" id="postal-code"></div></div>';
+					// '<input id="card-number" class="input-field" type="text" name="number" placeholder="Card Number" required="required"/>' +
+					// '<input id="expiration-date" class="column-left" type="text" name="expiry" placeholder="MM / YY" required="required"/>' +
+					// '<input id="cvv" class="column-right" type="text" name="ccv" placeholder="CCV" required="required"/>' + 
+					// '<input id="postal-code" class="column-right" type="text" name="postalCode" placeholder="card zip code" required="required"/></div>';
+					var client_authorization ='';
+					$.get('http://127.0.0.1:8000/online-order/BTcreatClietToken').done(function(token){
+						client_authorization = token;
+						console.log(client_authorization);
+						braintreeClientSide(client_authorization);
+					});
+
+					$('#payment').append(creditcardTemplate);
+
+					/* Card.js plugin by Jesse Pollak. https://github.com/jessepollak/card */
+
+					$('#checkout-modal-form').card({
+						container: '.card-wrapper',
+						width: 280,
+
+						formSelectors: {
+							nameInput: 'input[name="first-name"], input[name="last-name"]'
+						}
+					});
+
+
+					$('#payment').css("display","");
+				}else{
+					$('#payment').empty();
+					$('#payment').css("display","none");
+				}
+			});
+
+			$('#next').on('click', function(e){
+				e.preventDefault();
+
+				var current_page = $(this).attr("page-id"),
+				next_page = parseInt(current_page) + 1;
+				
+				if(current_page ==1 && ($('#first-name').val()=="" || $('#last-name').val() == "" || $('#email').val() == "") ){
+
+					if($('#first-name').val() == ""){
+
+						$('#first-name').css("border","thick solid red");
+					}else{
+						$('#first-name').css("border","");
+					}
+
+					if($('#last-name').val() == ""){
+
+						$('#last-name').css("border","thick solid red");
+					}else{
+						$('#last-name').css("border","");
+					}
+
+					if($('#email').val() == ""){
+
+						$('#email').css("border","thick solid red");
+					}else{
+						$('#email').css("border","");
+					}
+
+					return
+				}else{
+					$('#1 input').each(function(){
+						if($(this).value != ""){
+							$(this).css("border","none");
+						}
+					})
+				}
+
+				if(current_page == 2 && ($('#delivery_option_selection option:selected').val() == 'delivery')){
+							//$('#address2').val()=="" ||
+							if($('#address1').val()=="" || $('#city').val()=="" || $('#zipcode').val()=="" || $('#phone').val() == ""){
+
+								if($('#address1').val() == ""){
+
+									$('#address1').css("border","thick solid red");
+								}
+								else{
+									$('#address1').css("border","");
+								}
+
+								// if($('#address2').val() == ""){
+
+								// 	$('#address2').css("border","thick solid red");
+								// }
+								// else{
+								// 	$('#address2').css("border","");
+								// }
+
+								if($('#city').val() == ""){
+
+									$('#city').css("border","thick solid red");
+								}
+								else{
+									$('#city').css("border","");
+								}
+
+								if($('#zipcode').val() == ""){
+
+									$('#zipcode').css("border","thick solid red");
+								}
+								else{
+									$('#zipcode').css("border","");
+								}
+
+								if($('#phone').val() == ""){
+
+									$('#phone').css("border","thick solid red");
+								}else{
+									$('#phone').css("border","");
+								}
+
+								return
+							}else{
+								$('#2 input').each(function(){
+									if($(this).value != ""){
+										$(this).css("border","none");
+									}
+								})
+							}
+
+							delivery_calculation($('#address1').val() + $('#city').val() + $('#zipcode').val());
+
+							
+						}
+
+						console.log("10")
+
+						$('#' + current_page).css("display","none");
+						$('#' + next_page).css("display","");
+						$('#pre').css("display","").attr("last-page-id", current_page);
+						$(this).attr("page-id",next_page);
+
+						if($(this).attr("page-id") == 3){
+							$(this).css("display","none");
+						}else{
+							$(this).css("display","");
+						}
+					});
+
+			$('#pre').on('click', function(e){
+				var last_page_id = $('#pre').attr('last-page-id');
+				var current_page_id = parseInt(last_page_id) + 1
+				$('#'+ last_page_id).css("display","");
+				$('#'+ current_page_id).css("display","none");
+				$(this).attr("last-page-id",parseInt(last_page_id) - 1);
+				$('#next').attr("page-id",last_page_id);
+				if($('#next').css('display') == 'none'){
+					$('#next').css('display',"");
+				}
+				if(last_page_id == 1){
+					$('#pre').css("display","none").attr("last-page-id","1");
+					$(this).attr("last-page-id","");
+				}
+
+			});
+
+
 			//$('#online-order-checkout-button').on("click", function(event){
 
 				//$('#checkout-modal').modal('toggle');
@@ -1242,7 +1331,7 @@ form .btn {padding: 12px 24px;}
 			$.ajax({
 				url: 'http://127.0.0.1:8000/users/login/',
 				type: 'POST',
-				dataType: 'text',
+				dataType: 'json',
 				data: credentioal,
 				beforeSend: function( xhr ) {
 						//xhr.overrideMimeType( "text/plain; charset=x-user-defined" );
@@ -1250,8 +1339,9 @@ form .btn {padding: 12px 24px;}
 						xhr.setRequestHeader("Authorization", "Basic " + btoa(credentioal.email + ':' + credentioal.password));
 					},
 				}).success(function(data){
-					//console.log(jQuery.parseJSON(data));
-					result = jQuery.parseJSON(data)
+					//console.log(data);
+					//result = jQuery.parseJSON(data)
+					result = data
 					$("#user-logedin").css("display","");
 					$("#userLoginName").text(result.first_name);
 					$("#login").css("display","none");
@@ -1269,7 +1359,7 @@ form .btn {padding: 12px 24px;}
 					//checkout.user.push(result);
 
 					for(var d in result){
-						console.log(d, "  :", result[d]);
+						//console.log(d, "  :", result[d]);
 						checkout.user[d] = result[d];
 					}
 					saveCart();
@@ -1285,7 +1375,7 @@ form .btn {padding: 12px 24px;}
 
 		setTimeout(function(){
 			//&& checkout.user.length != 0
-			console.log(jQuery.isEmptyObject(checkout.user)); 
+			//console.log(jQuery.isEmptyObject(checkout.user)); 
 			if(!jQuery.isEmptyObject(checkout.user) && checkout.user != undefined){
 				$("#login").css("display","none");
 				$("#user-logedin").css("display","");
@@ -1299,9 +1389,222 @@ form .btn {padding: 12px 24px;}
 		}	, 500);
 
 		$('#logout').on('click', function(e){
-			deletedata();
-			location.reload();
+			var conf = confirm("are you sure you want to log out? you will loose your order if you haven't submit!");
+			if(conf){
+				deletedata();
+				location.reload();
+			}
 		});
+
+
+		var delivery_calculation = function(destination){
+			// $.get('https://maps.googleapis.com/maps/api/distancematrix/json?units=imperial&origins=90%20Peterborough%20St,%20Boston,MA&destinations='+ destination +'&key=AIzaSyAGbzWlcfZgzdkV502Oa7Iixj-s1HKzpq4')
+			// .done(function(data){
+			// 	console.log(data);
+			// });
+
+
+			var origin = '90 Peterborough St,Boston,MA';
+
+			var service = new google.maps.DistanceMatrixService;
+			service.getDistanceMatrix({
+				origins: [origin],
+				destinations: [destination],
+				travelMode: 'DRIVING',
+				//transitOptions: TransitOptions,
+				//drivingOptions: DrivingOptions,
+				unitSystem: google.maps.UnitSystem.IMPERIAL,
+			}, function(response, status){
+
+				if (status == 'OK') {
+					var origins = response.originAddresses;
+					var destinations = response.destinationAddresses;
+					var distance,duration, deliveryRate= 3.0, totalDeliveryCharge=0.0;
+
+					for (var i = 0; i < origins.length; i++) {
+						var results = response.rows[i].elements;
+						for (var j = 0; j < results.length; j++) {
+							var element = results[j];
+							// console.log("element");
+							// console.log(element);
+							distance = element.distance.text;
+							duration = element.duration.text;
+							var from = origins[i];
+							var to = destinations[j];
+						}
+					}
+
+					totalDeliveryCharge = deliveryRate * parseFloat(distance.split(' ')[0]);
+					//alert("$"+totalDeliveryCharge + " has been added to your shoping cart");
+					//if(confirm){
+					checkout.delivery = totalDeliveryCharge;
+					// console.log(totalDeliveryCharge);
+					// console.log(checkout);
+					//$('#delivery').val(totalDeliveryCharge.toFixed(2));
+					updateshoppingcart();
+					//}
+
+				}
+			});
+
+
+			// $.ajax({
+				
+			// 	type: 'GET',
+			// 	url:'https://maps.googleapis.com/maps/api/distancematrix/json',
+			// 	//?units=imperial&origins=90%20Peterborough%20St,%20Boston,MA&destinations='+ destination +'&key=AIzaSyAGbzWlcfZgzdkV502Oa7Iixj-s1HKzpq4',
+
+			// 	contentType: 'text/plain',
+			// 	data: {units: 'imperial', origins: '90 Peterborough St,Boston,MA', destinations: destination, key:'AIzaSyAGbzWlcfZgzdkV502Oa7Iixj-s1HKzpq4'},
+			// 	xhrFields: {
+			// 		//The 'xhrFields' property sets additional fields on the XMLHttpRequest.
+			// 		//This can be used to set the 'withCredentials' property.
+			// 		//Set the value to 'true' if you'd like to pass cookies to the server.
+			// 		//If this is enabled, your server must respond with the header
+			// 		//'Access-Control-Allow-Credentials: true'.
+			// 		withCredentials: true
+			// 	},
+			// 	// headers : {Accept : "application/json",
+			// 	// "Access-Control-Allow-Origin" : "*",
+			// 	// "Access-Control-Allow-Methods": "POST,GET,OPTIONS",
+			// 	// "Access-Control-Allow-Headers": "X-Authorization,X-Requested-With, Content-Type, Origin, authorization, accept, client-security-token"},
+			// 	//crossDomain: true,
+			// 	datatype: 'json',
+			// }).done(function(data){
+			// 	console.log(data);
+			// });
+
+			// var xhr = new XMLHttpRequest();
+			// xhr.open('GET', 'https://maps.googleapis.com/maps/api/distancematrix/json?units=imperial&origins=90%20Peterborough%20St,%20Boston,MA&destinations='+ destination +'&key=AIzaSyAGbzWlcfZgzdkV502Oa7Iixj-s1HKzpq4');
+
+			// xhr.onload = function () {
+			// 	console.log(xhr.responseText);
+			// };
+			// xhr.send();
+		}
+
+		//var form = document.querySelector('#cardForm');
+		var braintreeClientSide= function(client_authorization){
+
+			braintree.client.create({
+				authorization: client_authorization
+			}, function(clientErr, clientInstance){
+				if(clientErr){
+					console.log(clientErr);
+					alert(clientErr);
+					return;
+				}
+				console.log('clientInstance');
+				console.log(clientInstance);
+				createHostedFields(clientInstance);
+			});
+
+			function createHostedFields(clientInstance) {
+
+				braintree.hostedFields.create({
+					client: clientInstance,
+					styles: {
+						'input': {
+							'font-size': '16px',
+							'font-family': 'courier, monospace',
+							'font-weight': 'lighter',
+							'color': '#ccc'
+						},
+						':focus': {
+							'color': 'black'
+						},
+						'.valid': {
+							'color': '#8bdda8'
+						}
+					},
+					fields: {
+						number: {
+							selector: '#card-number',
+							placeholder: '4111 1111 1111 1111'
+						},
+						cvv: {
+							selector: '#cvv',
+							placeholder: '123'
+						},
+						expirationDate: {
+							selector: '#expiration-date',
+							placeholder: 'MM/YYYY'
+						},
+						postalCode: {
+							selector: '#postal-code',
+							placeholder: '11111'
+						}
+					}
+				}, function (hostedFieldsErr, hostedFieldsInstance) {
+					if(hostedFieldsErr){
+						console.log('hostedFieldsErr');
+						console.log(hostedFieldsErr);
+						return;
+					}
+
+					hostedFieldsInstance.tokenize(function (tokenizeErr, payload) {
+						if (tokenizeErr) {
+							console.log('tokenizeErr');
+							console.log(tokenizeErr);
+							return;
+						}
+						console.log(payload);
+						document.querySelector('input[name="payment-method-nonce"]').value = payload.nonce;
+
+											// var teardown = function (event) {
+					// 	event.preventDefault();
+					// 	alert('Submit your nonce to your server here!');
+
+					// 	hostedFieldsInstance.teardown(function () {
+					// 		createHostedFields(clientInstance);
+					// 		form.removeEventListener('submit', teardown, false);
+					// 	});
+					// };
+
+					// form.addEventListener('submit', teardown, false);
+
+					});
+				});
+
+			}
+		}
+
+
+
+
+
+
+
+		$('#final-checkout').on('click', function(e){
+			e.preventDefault();
+			if($('#payment_option_selection option:selected').val() == 'creditcard'){
+				// var client_authorization ='';
+				// $.get('http://127.0.0.1:8000/online-order/BTcreatClietToken').done(function(token){
+				// 	client_authorization = token;
+				// 	console.log(client_authorization);
+				// 	braintreeClientSide(client_authorization);
+				// });
+			}else{
+
+				alert("cash");
+			
+			// console.log($('#checkout-modal-form').serializeArray());
+			// var checkoutFormData = $('#checkout-modal-form').serializeArray();
+			// $.each(checkoutFormData, function(i, val){
+			// 	//console.log(val.name + ": " + val.value);
+			// 	checkout.final[val.name] = val.value;
+			// });
+			// //JSON.stringify()
+			// //var mydata = {'mycheckout': checkout};
+			// console.log("mydata=" + JSON.stringify(checkout));
+			// var d = "mydata=" + JSON.stringify(checkout);
+			// $.post('http://127.0.0.1:8000/online-order/submitAPIView/', d);
+			}
+			return false;
+		})
+
+
+
 
 		// function getCookie(name) {
 		// 	var cookieValue = null;

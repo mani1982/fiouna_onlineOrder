@@ -12,7 +12,7 @@ form{
   background-color: #B2D1E5;
   margin: 0 auto;
   width: 400px;
-  height: 600px;
+  height: auto;
 }
 /*.body-text {
   padding-bottom: 30px;
@@ -41,7 +41,7 @@ h1 {
 input {
   margin: 1px 0px;
 }
-input[type="text"]{
+input[type="text"], input[type="tel"]{
   display: block;
   height: 40px;
   /*width: 389px;*/
