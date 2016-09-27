@@ -3,26 +3,28 @@
 <head>
 	<meta charset="UTF-8">
 	<title>Fiouna online order</title>
+
 	<!-- Latest compiled and minified CSS -->
-	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
 
 	<!-- Optional theme -->
-	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap-theme.min.css" integrity="sha384-fLW2N01lMqjakBkx3l/M9EahuwpSfeNvV63J5ezn3uZzapT0u7EYsXMjQV+0En5r" crossorigin="anonymous">
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
 
 	<link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css"  rel="stylesheet">
 
 	<link rel="stylesheet" type="text/css" href="login_modal/login.css">
 	<link rel="stylesheet" href="css/style.css">
 
-	<!-- Latest compiled and minified JavaScript 
-	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script> -->
+	<!--script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script-->
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
 
-	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
-	<!--script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script-->
+
 	<!-- Latest compiled and minified JavaScript -->
-	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>
-	<!--script src='https://s3-us-west-2.amazonaws.com/s.cdpn.io/121761/card.js'></script-->
-	<script src='https://s3-us-west-2.amazonaws.com/s.cdpn.io/121761/jquery.card.js'></script>
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+
+
+	<!--script src='https://s3-us-west-2.amazonaws.com/s.cdpn.io/121761/card.js'></script>
+	<script src='https://s3-us-west-2.amazonaws.com/s.cdpn.io/121761/jquery.card.js'></script-->
 
 	<!-- Load the required client component. -->
 	<script src="https://js.braintreegateway.com/web/3.2.0/js/client.min.js"></script>
@@ -34,7 +36,7 @@
 
 
 
-		<style type="text/css">
+	<style type="text/css">
 			/*
 	 * Base structure
 	 */
@@ -209,7 +211,57 @@
 	 }
 	</style>
 
-<!--script src="static/online_order/index.js"></script-->
+
+	<style>
+		.form-group {
+				width: 100%;
+			}
+		.panel {
+			/*width: 80%;*/
+			margin: 2em auto;
+		}
+
+		.bootstrap-basic {
+			background: white;
+		}
+
+/*		.panel-body {
+			width: 90%;
+			margin: 2em auto;
+		}*/
+
+		.helper-text {
+			color: #8A6D3B;
+			font-size: 12px;
+			margin-top: 5px;
+			height: 12px;
+			display: block;
+		}
+
+		/* Braintree Hosted Fields styling classes*/
+		.braintree-hosted-fields-focused { 
+			border: 1px solid #0275d8;
+			box-shadow: inset 0 1px 1px rgba(0,0,0,.075),0 0 8px rgba(102,175,233,.6);
+		}
+
+		.braintree-hosted-fields-focused.focused-invalid {
+			border: 1px solid #ebcccc;
+			box-shadow: inset 0 1px 1px rgba(0,0,0,.075),0 0 8px rgba(100,100,0,.6);
+		}
+
+		@media (max-width: 100px) {
+			.form-group {
+				width: 100%;
+			}
+
+			.btn {
+				white-space: normal;
+			}
+		}
+
+	</style>
+
+	<!--script src="static/online_order/index.js"></script-->
 </head>
 <body>
 	<!-- Menu items. -->
@@ -287,99 +339,112 @@
 		</div><!-- /.container -->		
 	</div>
 
-	<div id="checkout-modal" class="modal fade" tabindex="-1" role="dialog" data-backdrop="true" data-keyboard="true">
-	<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-		<form id="checkout-modal-form">
-	
-				<div class="personal-information">
-					<h1>Payment Information</h1>
-				</div> <!-- end of personal-information -->
-				<div id="1">
-					<input id="first-name" class="column-left" type="text" required="required" name="firstname" placeholder="First Name"/>
+	<div id="checkout-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="checkout-modalLabel" data-backdrop="true" data-keyboard="true">
+		<div class="modal-dialog" role="document">
+			<div class="modal-content" id="checkout-modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+					<h4 class="modal-title" id="myModalLabel">Modal title</h4>
+					
 
-					<input id="last-name" class="column-right" type="text" name="lastname" placeholder="last-name" required="required"/>
-
-					<!-- input id="phone" type="tel" pattern="[0-9]{10}" name="Telephone" required="required" autocomplete="on" maxlength="10" placeholder="Phone Number"/-->
-
-					<input id="email" class="input-field" type="email" name="email" required="required" autocomplete="on" maxlength="40" placeholder="Email"/>
+					<div class="personal-information">
+						<h1>Payment Information</h1>
+					</div> <!-- end of personal-information -->
 				</div>
+				<div class="modal-body">
+					<form id="checkout-modal-form">
+						<div id="1">
+							<input id="first-name" class="column-left" type="text" required="required" name="firstname" placeholder="First Name"/>
 
-				<div id="2" style="display:none">
-					<div id="delivery_option">
-						<select id="delivery_option_selection">
-							<option id="pickup" name="pickup" value="pickup">
-								pickup
-							</option>
+							<input id="last-name" class="column-right" type="text" name="lastname" placeholder="last-name" required="required"/>
 
-							<option id="delivery" name="delivery" value="delivery">
-								delivery
-							</option>
-						</select>
+							<input id="email" class="input-field" type="email" name="email" required="required" autocomplete="on" maxlength="40" placeholder="Email"/>
+						</div>
+
+						<div id="2" style="display:none">
+							<div id="delivery_option">
+								<select id="delivery_option_selection">
+									<option id="pickup" name="pickup" value="pickup">
+										pickup
+									</option>
+
+									<option id="delivery" name="delivery" value="delivery">
+										delivery
+									</option>
+								</select>
+							</div>
+
+							<div id="address" style="display:none">
+
+							</div>
+						</div>
+					</form>
+
+					<div id="3" style="display:none">
+
+						<div id="payment_option">
+							<select id="payment_option_selection">
+								<option id="cash" name="cash" value="Cash">
+									Cash
+								</option>
+
+								<option id="creditcard" name="creditcard" value="creditcard">
+									creditcard
+								</option>
+							</select>
+						</div>
+
+						<div id="payment" style="display:none">
+							<div class="panel panel-default bootstrap-basic"> 
+								<form class="panel-body"> 
+									<div class="row"> 
+										<div class="form-group col-xs-8"> 
+											<label class="control-label">Card Number</label> 
+											<div class="form-control" id="card-number"></div> 
+											<span class="helper-text"></span> 
+										</div>
+										<div class="form-group col-xs-4"> 
+											<div class="row"> 
+												<label class="control-label col-xs-12">Expiration Date</label> 
+												<div class="col-xs-6"> 
+													<div class="form-control" id="expiration-month"></div> 
+												</div>
+												<div class="col-xs-6"> 
+													<div class="form-control" id="expiration-year"></div> 
+												</div> 
+											</div> 
+										</div> 
+									</div>
+									<div class="row"> 
+										<div class="form-group col-xs-6"> 
+											<label class="control-label">Security Code</label>
+											<div class="form-control" id="cvv"></div> 
+										</div>
+										<div class="form-group col-xs-6"> 
+											<label class="control-label">Zipcode</label>
+											<div class="form-control" id="postal-code"></div>
+										</div>
+									</div>
+								</form>
+							</div>
+
+						</div>
+
+						<input id="final-checkout" class="input-button" type="submit" value="Submit" />
 					</div>
 					
-					<div id="address" style="display:none">
-					<!--input id="address1" class="input-field" type="text" name="address1" required="required" autocomplete="on" maxlength="45" placeholder="Streed Address"/>
-
-					<input id="address2" class="input-field" type="text" name="address2" required="required" autocomplete="on" maxlength="45" placeholder="Streed Address2"/>
-
-					<input id="city" class="column-left" type="text" name="city" required="required" autocomplete="on" maxlength="20" placeholder="City"/>
-
-					<input id="zipcode" class="column-right" type="text" name="zipcode" required="required" autocomplete="on" pattern="[0-9]*" maxlength="5" placeholder="ZIP code"/ -->
-
-					</div>
+				</div>
+				<div class="modal-footer">
+					<input id="pre" class="btn btn-primary" type="button" value="previous" style="display:none" />
+					<input id="next" class="btn btn-primary" type="button" value="next" page-id="1"/>
 				</div>
 
 
-				<div id="3" style="display:none">
 
-				<div id="payment_option">
-						<select id="payment_option_selection">
-							<option id="cash" name="cash" value="Cash">
-								Cash
-							</option>
-
-							<option id="creditcard" name="creditcard" value="creditcard">
-								creditcard
-							</option>
-						</select>
-					</div>
-					
-					<div id="payment" style="display:none">
-						<!--div class="card-wrapper"></div>
-						<input class="column-left" type="text" name="first-name" placeholder="First Name" required="required"/>
-
-						<input class="column-right" type="text" name="last-name" placeholder="Surname" required="required"/>
-
-						<input class="input-field" type="text" name="number" placeholder="Card Number" required="required"/>
-
-						<input class="column-left" type="text" name="expiry" placeholder="MM / YY" required="required"/>
-
-						<input class="column-right" type="text" name="cvc" placeholder="CCV" required="required"/ -->
-					</div>
-
-					<input id="final-checkout" class="input-button" type="submit" value="Submit" />
-
-				</div>
-				
-
-				<input id="pre" class="btn btn-primary" type="button" value="previous" style="display:none" />
-				<input id="next" class="btn btn-primary" type="button" value="next" page-id="1"/>
-
-				
-			</form>
+			</div>
 		</div>
+	</div>
 
-
-
-
-<!--div class="jumbotron">
-		<div class="container">
-			<h1>Hello, world!</h1>
-			<p>This is a template for a simple marketing or informational website. It includes a large callout called a jumbotron and three supporting pieces of content. Use it as a starting point to create something more unique.</p>
-			<p><a class="btn btn-primary btn-lg" href="#" role="button">Learn more &raquo;</a></p>
-			<ul class="nav nav-pills nav-stacked" id="mani"></ul>
-		</div>
-	</div-->
 	<nav class="navbar navbar-inverse navbar-fixed-top">
 	  	<div class="container-fluid">
 			<div class="navbar-header">
@@ -580,7 +645,7 @@
 			// console.log(that.text());
 			// });
 
-		}	, 500);
+		}	, 700);
 
 		$("#mani").on("click", 'a', function(e){
 			e.preventDefault();
@@ -1102,9 +1167,16 @@
 			// 	$('#checkout-modal-form').trigger("reset");
 			// });
 		var ckeckout = function(){
+			checkout.delivery_option = $('#delivery_option_selection option:selected').val();
+			checkout.payment_option = $('#payment_option_selection option:selected').val();
+			saveCart();
+			console.log(checkout);
 
 			$('#delivery_option').on('change', function(e){
+				checkout.delivery_option = $('#delivery_option_selection option:selected').val();
+				console.log(checkout);
 				if($('#delivery_option_selection option:selected').val() == 'delivery'){
+
 					var addressTemplate = 
 					'<input id="address1" class="input-field" type="text" name="address1" required="required" autocomplete="on" maxlength="45" placeholder="Streed Address"/>' +
 
@@ -1126,43 +1198,66 @@
 
 			$('#payment_option').on('change', function(e){
 				e.preventDefault();
+				checkout.payment_option = $('#payment_option_selection option:selected').val();
+				console.log(checkout);
 				if($('#payment_option_selection option:selected').val() == 'creditcard'){
-					var creditcardTemplate = '<div class="form-container"><div class="card-wrapper"></div>' +
-					'<input type="hidden" name="payment-method-nonce">' +
-					'<input class="column-left" type="text" name="first-name" placeholder="First Name" required="required"/>' +
-					'<input class="column-right" type="text" name="last-name" placeholder="Surname" required="required"/>' +
-					'<div class="hosted-field" id="card-number"></div>' +
-  					'<div class="hosted-field" id="cvv"></div>' + 
-  					'<div class="hosted-field" id="expiration-date"></div>' +
-  					'<div class="hosted-field" id="postal-code"></div></div>';
+					// var creditcardTemplate = '<div class="form-container"><div class="card-wrapper"></div>' +
+					// '<input type="hidden" name="payment-method-nonce">' +
+					// '<input class="column-left" type="text" name="first-name" placeholder="First Name" required="required"/>' +
+					// '<input class="column-right" type="text" name="last-name" placeholder="Surname" required="required"/>' +
+					// '<div class="hosted-field" id="card-number"></div>' +
+  			// 		'<div class="hosted-field" id="cvv"></div>' + 
+  			// 		'<div class="hosted-field" id="expiration-date"></div>' +
+  			// 		'<div class="hosted-field" id="postal-code"></div></div>';
 					// '<input id="card-number" class="input-field" type="text" name="number" placeholder="Card Number" required="required"/>' +
 					// '<input id="expiration-date" class="column-left" type="text" name="expiry" placeholder="MM / YY" required="required"/>' +
 					// '<input id="cvv" class="column-right" type="text" name="ccv" placeholder="CCV" required="required"/>' + 
 					// '<input id="postal-code" class="column-right" type="text" name="postalCode" placeholder="card zip code" required="required"/></div>';
-					var client_authorization ='';
-					$.get('http://127.0.0.1:8000/online-order/BTcreatClietToken').done(function(token){
-						client_authorization = token;
-						console.log(client_authorization);
-						braintreeClientSide(client_authorization);
-					});
 
-					$('#payment').append(creditcardTemplate);
+					// var creditcardTemplate = '<form id="cardForm"> <div class="panel"> <div class="panel__content">' +
+					// '<div class="textfield--float-label"> <div id="card-number" class="hosted-field"></div> </div>'  +
+					// '<div class="textfield--float-label"> <div id="expiration-date" class="hosted-field"></div> </div>'  +
+					// '<div class="textfield--float-label"> <div id="cvv" class="hosted-field"></div> </div>'  +
+					// '<div class="textfield--float-label"> <div id="postal-code" class="hosted-field"></div> </div>'  +
+					// '</div></div></form>';
+
+					// var creditcardTemplate = '<div class="panel panel-default bootstrap-basic"> <form class="panel-body">' +
+					// '<div class="row"> <div class="form-group col-xs-8"> <label class="control-label">Card Number</label>' +
+					// '<div class="form-control" id="card-number"></div> <span class="helper-text"></span> </div>' +
+					// '<div class="form-group col-xs-4"> <div class="row"> <label class="control-label col-xs-12">Expiration Date</label> ' +
+					// '<div class="col-xs-6"> <div class="form-control" id="expiration-month"></div> </div>' +
+					// '<div class="col-xs-6"> <div class="form-control" id="expiration-year"></div> </div> </div> </div> </div>' +
+					// '<div class="row"> <div class="form-group col-xs-6"> <label class="control-label">Security Code</label>' +
+					// '<div class="form-control" id="cvv"></div> </div>' +
+					// '<div class="form-group col-xs-6"> <label class="control-label">Zipcode</label> ' +
+					// '<div class="form-control" id="postal-code"></div> </div> </div>' +
+					// '</form></div>';
+
+
+					// var client_authorization ='';
+					// $.get('http://127.0.0.1:8000/online-order/BTcreatClietToken').done(function(token){
+					// 	client_authorization = token;
+					// 	console.log(client_authorization);
+					// 	braintreeClientSide(client_authorization);
+					// });
+
+					//$('#payment').append(creditcardTemplate);
 
 					/* Card.js plugin by Jesse Pollak. https://github.com/jessepollak/card */
 
-					$('#checkout-modal-form').card({
-						container: '.card-wrapper',
-						width: 280,
+					// $('#checkout-modal-form').card({
+					// 	container: '.card-wrapper',
+					// 	width: 280,
 
-						formSelectors: {
-							nameInput: 'input[name="first-name"], input[name="last-name"]'
-						}
-					});
+					// 	formSelectors: {
+					// 		nameInput: 'input[name="first-name"], input[name="last-name"]'
+					// 	}
+					// });
 
 
-					$('#payment').css("display","");
+					$('#payment').css("display","block");
 				}else{
-					$('#payment').empty();
+					//$('#payment').empty();
 					$('#payment').css("display","none");
 				}
 			});
@@ -1292,9 +1387,16 @@
 				}
 
 			});
+		}
 
-
-			//$('#online-order-checkout-button').on("click", function(event){
+		$('#checkout-modal').on('show.bs.modal', function(event){
+			ckeckout();
+			var client_authorization ='';
+			$.get('http://127.0.0.1:8000/online-order/BTcreatClietToken').done(function(token){
+				client_authorization = token;
+				console.log(client_authorization);
+				braintreeClientSide(client_authorization);
+			});
 
 				//$('#checkout-modal').modal('toggle');
 
@@ -1316,9 +1418,9 @@
 				// }).error(function(jqXHR, errorText, thrownError) {
 				// 	alert(thrownError);
 				// });
-			//});
-		}
-		ckeckout();
+			});
+
+		//ckeckout();
 
 		$("#signin-signup-form").submit(function(e){
 			e.preventDefault();
@@ -1505,16 +1607,12 @@
 					client: clientInstance,
 					styles: {
 						'input': {
-							'font-size': '16px',
-							'font-family': 'courier, monospace',
-							'font-weight': 'lighter',
-							'color': '#ccc'
+							'font-size': '14px',
+							'font-family': 'helvetica, tahoma, calibri, sans-serif',
+							'color': '#3a3a3a'
 						},
 						':focus': {
 							'color': 'black'
-						},
-						'.valid': {
-							'color': '#8bdda8'
 						}
 					},
 					fields: {
@@ -1526,13 +1624,17 @@
 							selector: '#cvv',
 							placeholder: '123'
 						},
-						expirationDate: {
-							selector: '#expiration-date',
-							placeholder: 'MM/YYYY'
+						expirationMonth: {
+							selector: '#expiration-month',
+							placeholder: 'MM'
+						},
+						expirationYear: {
+							selector: '#expiration-year',
+							placeholder: 'YY'
 						},
 						postalCode: {
 							selector: '#postal-code',
-							placeholder: '11111'
+							placeholder: '90210'
 						}
 					}
 				}, function (hostedFieldsErr, hostedFieldsInstance) {
@@ -1542,28 +1644,91 @@
 						return;
 					}
 
-					hostedFieldsInstance.tokenize(function (tokenizeErr, payload) {
-						if (tokenizeErr) {
-							console.log('tokenizeErr');
-							console.log(tokenizeErr);
-							return;
+					hostedFieldsInstance.on('validityChange', function (event) {
+						console.log(event);
+						var field = event.fields[event.emittedBy];
+
+						if (field.isValid) {
+							if (event.emittedBy === 'expirationMonth' || event.emittedBy === 'expirationYear') {
+								if (!event.fields.expirationMonth.isValid || !event.fields.expirationYear.isValid) {
+									return;
+								}
+							} else if (event.emittedBy === 'number') {
+								$('#card-number').next('span').text('');
+							}
+
+							$(field.container).parents('.form-group').addClass('has-success');
+						} else if (field.isPotentiallyValid) {
+
+							$(field.container).parents('.form-group').removeClass('has-warning');
+							$(field.container).parents('.form-group').removeClass('has-success');
+							if (event.emittedBy === 'number') {
+								$('#card-number').next('span').text('');
+							}
+						} else {
+
+							$(field.container).parents('.form-group').addClass('has-warning');
+
+							if (event.emittedBy === 'number') {
+								$('#card-number').next('span').text('Looks like this card number has an error.');
+							}
 						}
-						console.log(payload);
-						document.querySelector('input[name="payment-method-nonce"]').value = payload.nonce;
+					});
 
-											// var teardown = function (event) {
-					// 	event.preventDefault();
-					// 	alert('Submit your nonce to your server here!');
+					hostedFieldsInstance.on('cardTypeChange', function (event) {
 
-					// 	hostedFieldsInstance.teardown(function () {
-					// 		createHostedFields(clientInstance);
-					// 		form.removeEventListener('submit', teardown, false);
-					// 	});
-					// };
+						if (event.cards.length === 1) {
+							//$('#card-type').text(event.cards[0].niceType);
+							$('#card-number').next('span').text(event.cards[0].niceType);
+						} else {
+							//$('#card-type').text('Card');
+							$('#card-number').next('span').text('Card');
+						}
+					});
 
-					// form.addEventListener('submit', teardown, false);
+					$('#final-checkout').on('click',function (event) {
+						event.preventDefault();
+						if($('#payment_option_selection option:selected').val() == 'creditcard'){
+							hostedFieldsInstance.tokenize(function (err, payload) {
+								if (err) {
+									console.log('payloadError');
+									console.error(err);
+									return;
+								}
+								console.log(payload);
+								alert('Submit your nonce to your server here!');
+							});
+
+						}else{
+
+							alert("cash");
+						}
+						return false;
 
 					});
+
+					// hostedFieldsInstance.tokenize(function (tokenizeErr, payload) {
+					// 	if (tokenizeErr) {
+					// 		console.log('tokenizeErr');
+					// 		console.log(tokenizeErr);
+					// 		return;
+					// 	}
+					// 	console.log(payload);
+					// 	document.querySelector('input[name="payment-method-nonce"]').value = payload.nonce;
+
+					// 						// var teardown = function (event) {
+					// // 	event.preventDefault();
+					// // 	alert('Submit your nonce to your server here!');
+
+					// // 	hostedFieldsInstance.teardown(function () {
+					// // 		createHostedFields(clientInstance);
+					// // 		form.removeEventListener('submit', teardown, false);
+					// // 	});
+					// // };
+
+					// // form.addEventListener('submit', teardown, false);
+
+					// });
 				});
 
 			}
@@ -1575,33 +1740,33 @@
 
 
 
-		$('#final-checkout').on('click', function(e){
-			e.preventDefault();
-			if($('#payment_option_selection option:selected').val() == 'creditcard'){
-				// var client_authorization ='';
-				// $.get('http://127.0.0.1:8000/online-order/BTcreatClietToken').done(function(token){
-				// 	client_authorization = token;
-				// 	console.log(client_authorization);
-				// 	braintreeClientSide(client_authorization);
-				// });
-			}else{
+		// $('#final-checkout').on('click', function(e){
+		// 	e.preventDefault();
+		// 	if($('#payment_option_selection option:selected').val() == 'creditcard'){
+		// 		// var client_authorization ='';
+		// 		// $.get('http://127.0.0.1:8000/online-order/BTcreatClietToken').done(function(token){
+		// 		// 	client_authorization = token;
+		// 		// 	console.log(client_authorization);
+		// 		// 	braintreeClientSide(client_authorization);
+		// 		// });
+		// 	}else{
 
-				alert("cash");
+		// 		alert("cash");
 			
-			// console.log($('#checkout-modal-form').serializeArray());
-			// var checkoutFormData = $('#checkout-modal-form').serializeArray();
-			// $.each(checkoutFormData, function(i, val){
-			// 	//console.log(val.name + ": " + val.value);
-			// 	checkout.final[val.name] = val.value;
-			// });
-			// //JSON.stringify()
-			// //var mydata = {'mycheckout': checkout};
-			// console.log("mydata=" + JSON.stringify(checkout));
-			// var d = "mydata=" + JSON.stringify(checkout);
-			// $.post('http://127.0.0.1:8000/online-order/submitAPIView/', d);
-			}
-			return false;
-		})
+		// 	// console.log($('#checkout-modal-form').serializeArray());
+		// 	// var checkoutFormData = $('#checkout-modal-form').serializeArray();
+		// 	// $.each(checkoutFormData, function(i, val){
+		// 	// 	//console.log(val.name + ": " + val.value);
+		// 	// 	checkout.final[val.name] = val.value;
+		// 	// });
+		// 	// //JSON.stringify()
+		// 	// //var mydata = {'mycheckout': checkout};
+		// 	// console.log("mydata=" + JSON.stringify(checkout));
+		// 	// var d = "mydata=" + JSON.stringify(checkout);
+		// 	// $.post('http://127.0.0.1:8000/online-order/submitAPIView/', d);
+		// 	}
+		// 	return false;
+		// })
 
 
 
