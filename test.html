@@ -296,14 +296,14 @@
 							<div class="face front"> 
 								<div class="panel panel-default">
 									<div class="modal-header">
-									<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+										<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
 									</div>
-									<form id="signin-signup-form" class="form-horizontal">
+									<form id="signin-form" class="form-horizontal">
 										<br>
-										<h1 class="text-center">LOGO</h1>
+										<h2 class="text-center">Please sign in</h2>
 										<br>
-										<input class="form-control" name="email" placeholder="Email"/>
-										<input class="form-control" type="password" name="password" placeholder="Password"/>
+										<input class="form-control" type="email" name="email" placeholder="Email" required="true" />
+										<input class="form-control" type="password" name="password" placeholder="Password" required="true" />
 										<p class="text-right"><a href="">Forgot Password</a></p>
 										<button id="log-in" class="btn btn-primary btn-block">LOG IN</button>
 										<p class="text-center">
@@ -314,16 +314,19 @@
 							</div> 
 							<div class="face back"> 
 								<div class="panel panel-default">
-									<form class="form-horizontal">
+									<form id="signup-form" class="form-horizontal">
 										<br>
-										<h1 class="text-center">LOGO</h1>
+										<h2 class="text-center">Please sign up</h2>
 										<br>
 										<label>Basic Information</label>
-										<input class="form-control" placeholder="Fullname"/>
-										<input class="form-control" placeholder="Email"/>
+										<input class="form-control" name="first_name" placeholder="First name" required="true" />
+										<input class="form-control" name="last_name" placeholder="Last name" required="true"/>
+										<input class="form-control" type="email" name="email" placeholder="Email" required="true"/>
+										<input class="form-control" type="email" name="email2" placeholder="Confirm Email" required="true"/>
 										<label>Private Information</label>
-										<input class="form-control" placeholder="Password"/>
-										<input class="form-control" placeholder="Mobile Number"/>
+										<input class="form-control" type="password" name="password" placeholder="Password" required="true"/>
+										<input class="form-control" type="password" name="retryPassword" placeholder="re-try Password" required="true"/>
+										<!--input class="form-control" name="MobileNumber" placeholder="Mobile Number"/ -->
 										<button class="btn btn-primary btn-block">SIGN UP</button>
 										<p class="text-center">
 											<a href="#" class="fliper-btn">Already have an account?</a>
@@ -344,7 +347,7 @@
 			<div class="modal-content" id="checkout-modal-content">
 				<div class="modal-header">
 					<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-					<h4 class="modal-title" id="myModalLabel">Modal title</h4>
+					<!-- <h4 class="modal-title" id="myModalLabel">Modal title</h4> -->
 					
 
 					<div class="personal-information">
@@ -538,26 +541,6 @@
 					<table class="table table-condensed">
 
 						<tbody>
-				<!--			<tr id="shopping-cart-subtotal-row" class="shopping-cart-total-row">
-
-								<td class="shopping-cart-total-label">Subtotal:</td>
-								<td class="shopping-cart-total">$13.95</td>
-
-							</tr>	
-
-							<tr id="shopping-cart-taxtotal-row" class="shopping-cart-total-row">
-
-								<td class="shopping-cart-total-label">Tax:</td>
-								<td class="shopping-cart-total">$0.98</td>
-
-							</tr>	
-
-							<tr id="shopping-cart-grandtotal-row" class="shopping-cart-total-row">
-
-								<td id="shopping-cart-grand-total-label" class="shopping-cart-total-label">Total:</td>
-								<td id="shopping-cart-grand-total" class="shopping-cart-total">$14.93</td>
-
-							</tr>   -->
 
 						</tbody>
 					</table>
@@ -586,16 +569,12 @@
 
 
 
-				<div id="shopping-cart-bottom-cap"></div>
+				<div id="shopping-cart-bottom-cap">
 
 
 				<a id="online-order-checkout-button" href="#" class="btn btn-large btn-primary" data-toggle="modal"
 				data-target="#checkout-modal">Checkout</a>
-
-
-				<p class="gray" style="text-align: center;padding-top:20px;">
-
-				</p>
+				</div>
 
 			</div>
 		</div>
@@ -1201,25 +1180,6 @@
 				checkout.payment_option = $('#payment_option_selection option:selected').val();
 				console.log(checkout);
 				if($('#payment_option_selection option:selected').val() == 'creditcard'){
-					// var creditcardTemplate = '<div class="form-container"><div class="card-wrapper"></div>' +
-					// '<input type="hidden" name="payment-method-nonce">' +
-					// '<input class="column-left" type="text" name="first-name" placeholder="First Name" required="required"/>' +
-					// '<input class="column-right" type="text" name="last-name" placeholder="Surname" required="required"/>' +
-					// '<div class="hosted-field" id="card-number"></div>' +
-  			// 		'<div class="hosted-field" id="cvv"></div>' + 
-  			// 		'<div class="hosted-field" id="expiration-date"></div>' +
-  			// 		'<div class="hosted-field" id="postal-code"></div></div>';
-					// '<input id="card-number" class="input-field" type="text" name="number" placeholder="Card Number" required="required"/>' +
-					// '<input id="expiration-date" class="column-left" type="text" name="expiry" placeholder="MM / YY" required="required"/>' +
-					// '<input id="cvv" class="column-right" type="text" name="ccv" placeholder="CCV" required="required"/>' + 
-					// '<input id="postal-code" class="column-right" type="text" name="postalCode" placeholder="card zip code" required="required"/></div>';
-
-					// var creditcardTemplate = '<form id="cardForm"> <div class="panel"> <div class="panel__content">' +
-					// '<div class="textfield--float-label"> <div id="card-number" class="hosted-field"></div> </div>'  +
-					// '<div class="textfield--float-label"> <div id="expiration-date" class="hosted-field"></div> </div>'  +
-					// '<div class="textfield--float-label"> <div id="cvv" class="hosted-field"></div> </div>'  +
-					// '<div class="textfield--float-label"> <div id="postal-code" class="hosted-field"></div> </div>'  +
-					// '</div></div></form>';
 
 					// var creditcardTemplate = '<div class="panel panel-default bootstrap-basic"> <form class="panel-body">' +
 					// '<div class="row"> <div class="form-group col-xs-8"> <label class="control-label">Card Number</label>' +
@@ -1242,17 +1202,6 @@
 					// });
 
 					//$('#payment').append(creditcardTemplate);
-
-					/* Card.js plugin by Jesse Pollak. https://github.com/jessepollak/card */
-
-					// $('#checkout-modal-form').card({
-					// 	container: '.card-wrapper',
-					// 	width: 280,
-
-					// 	formSelectors: {
-					// 		nameInput: 'input[name="first-name"], input[name="last-name"]'
-					// 	}
-					// });
 
 
 					$('#payment').css("display","block");
@@ -1398,31 +1347,11 @@
 				braintreeClientSide(client_authorization);
 			});
 
-				//$('#checkout-modal').modal('toggle');
-
-				// $('#checkout-modal').on('shown.bs.modal', function (event) {
-				// 	$('#checkout-modal').focus();
-				// });
-				// console.log(checkout);
-				// $.ajax({
-				// 	url: 'http://127.0.0.1:8000/online-order/submitAPIView',
-				// 	type: 'POST',
-				// 	dataType: 'text',
-				// 	data: checkout,
-				// 	// beforeSend: function( xhr ) {
-				// 	// 	//xhr.overrideMimeType( "text/plain; charset=x-user-defined" );
-				// 	// 	confirm("yes?");
-				// 	// }
-				// }).success(function(data){
-				// 	console.log(data);
-				// }).error(function(jqXHR, errorText, thrownError) {
-				// 	alert(thrownError);
-				// });
-			});
+		});
 
 		//ckeckout();
 
-		$("#signin-signup-form").submit(function(e){
+		$("#signin-form").submit(function(e){
 			e.preventDefault();
 			input_fields = $(this).serializeArray();
 			credentioal = {};
@@ -1448,11 +1377,6 @@
 					$("#userLoginName").text(result.first_name);
 					$("#login").css("display","none");
 					$('#signin-signup').modal('toggle');
-					// var userinfo = {};
-					// $.each(result,function(key,val){
-					// 	//console.log(key, " : ", val );
-					// 	userinfo[key] = val;
-					// });
 
 					$('#first-name').val(result.first_name);
 					$('#last-name').val(result.last_name);
@@ -1471,7 +1395,12 @@
 					// 	$.post('http://127.0.0.1:8000/users/logout/');
 					// });
 				}).error(function(data) {
+					console.log("error");
 					console.log(data);
+					text = data.responseText;
+					text = text.substring(text.indexOf('[')+1,text.lastIndexOf(']'));
+
+					alert(text);
 				});
 		});
 
@@ -1489,6 +1418,60 @@
 
 			}
 		}	, 500);
+
+
+		$("#signup-form").submit(function(e){
+			e.preventDefault();
+			var signupFields = $(this).serializeArray();
+			signupData = {}
+			$(signupFields).each(function(index, obj){
+				signupData[obj.name] = obj.value;
+			});
+
+			//console.log(signupData);
+
+			if(signupData.email !== signupData.email2){
+				alert("emails are not match");
+				return;
+			}
+
+			if(signupData.password !== signupData.retryPassword){
+				alert("the passwords are not match");
+				return;
+			}
+			$.ajax({
+				url: 'http://127.0.0.1:8000/users/register/',
+				type: 'POST',
+				dataType: 'json',
+				data: signupData,
+				}).success(function(data){
+					//console.log(data);
+					result = data
+					$("#user-logedin").css("display","");
+					$("#userLoginName").text(result.first_name);
+					$("#login").css("display","none");
+					$('#signin-signup').modal('toggle');
+
+					$('#first-name').val(result.first_name);
+					$('#last-name').val(result.last_name);
+					$('#email').val(result.email);
+
+					for(var d in result){
+						//console.log(d, "  :", result[d]);
+						checkout.user[d] = result[d];
+					}
+					saveCart();
+					
+				}).error(function(data) {
+					console.log(data);
+					text = data.responseText;
+					text = text.substring(text.indexOf('[')+1,text.lastIndexOf(']'));
+
+					alert(text);
+				});
+
+
+			})
 
 		$('#logout').on('click', function(e){
 			var conf = confirm("are you sure you want to log out? you will loose your order if you haven't submit!");
@@ -1696,7 +1679,69 @@
 									return;
 								}
 								console.log(payload);
-								alert('Submit your nonce to your server here!');
+								//alert('Submit your nonce to your server here!');
+
+								customer_info = !jQuery.isEmptyObject(checkout.user) ? checkout.user : {'first_name' : $('#first-name').val(), 'last_name': $('#last-name').val(), 'email': $('#email').val()};
+
+								data = {"nonce": payload.nonce, "amount": checkout.total, "customer": customer_info};
+								console.log(data);
+
+								$.ajax({
+									url: 'http://127.0.0.1:8000/online-order/BTcreate_purchase',
+									type: 'POST',
+									contentType: 'application/json',
+									data: JSON.stringify(data),
+									dataType: 'json',
+								}).success(function(data){
+									console.log("success transaction: ");
+									console.log(data);
+									console.log(data.status);
+
+									if(data.status =='authorized' && data.settlement_result_status == 'submitted_for_settlement' && data.transaction_id != ''){
+										console.log('lets go for next');
+
+										$.ajax({
+											url: 'http://127.0.0.1:8000/online-order/submitAPIView',
+											type: 'POST',
+											contentType: 'application/json',
+											data: JSON.stringify(checkout),
+											dataType: 'json',
+										}).success(function(data){
+											console.log(data);
+										}).error(function(jqXHR, errorText, thrownError) {
+											alert(thrownError);
+										});
+
+
+									}else{
+										console.log("status: " + data.status + ",  settlement_result_status: " + data.settlement_result_status + ",  transaction_id: " + data.transaction_id);
+										alert('your transaction has been rejected because: ' + data.status + " . Please reload/refresh the page then try it again.");
+									}
+								}).error(function(err){
+									console.log('error');
+									console.log(err);
+								});
+
+								//$('#checkout-modal').modal('toggle');
+
+								// $('#checkout-modal').on('shown.bs.modal', function (event) {
+								// 	$('#checkout-modal').focus();
+								// });
+								// console.log(checkout);
+								// $.ajax({
+								// 	url: 'http://127.0.0.1:8000/online-order/submitAPIView',
+								// 	type: 'POST',
+								// 	dataType: 'text',
+								// 	data: checkout,
+								// 	// beforeSend: function( xhr ) {
+								// 	// 	//xhr.overrideMimeType( "text/plain; charset=x-user-defined" );
+								// 	// 	confirm("yes?");
+								// 	// }
+								// }).success(function(data){
+								// 	console.log(data);
+								// }).error(function(jqXHR, errorText, thrownError) {
+								// 	alert(thrownError);
+								// });
 							});
 
 						}else{
@@ -1707,66 +1752,10 @@
 
 					});
 
-					// hostedFieldsInstance.tokenize(function (tokenizeErr, payload) {
-					// 	if (tokenizeErr) {
-					// 		console.log('tokenizeErr');
-					// 		console.log(tokenizeErr);
-					// 		return;
-					// 	}
-					// 	console.log(payload);
-					// 	document.querySelector('input[name="payment-method-nonce"]').value = payload.nonce;
-
-					// 						// var teardown = function (event) {
-					// // 	event.preventDefault();
-					// // 	alert('Submit your nonce to your server here!');
-
-					// // 	hostedFieldsInstance.teardown(function () {
-					// // 		createHostedFields(clientInstance);
-					// // 		form.removeEventListener('submit', teardown, false);
-					// // 	});
-					// // };
-
-					// // form.addEventListener('submit', teardown, false);
-
-					// });
 				});
 
 			}
 		}
-
-
-
-
-
-
-
-		// $('#final-checkout').on('click', function(e){
-		// 	e.preventDefault();
-		// 	if($('#payment_option_selection option:selected').val() == 'creditcard'){
-		// 		// var client_authorization ='';
-		// 		// $.get('http://127.0.0.1:8000/online-order/BTcreatClietToken').done(function(token){
-		// 		// 	client_authorization = token;
-		// 		// 	console.log(client_authorization);
-		// 		// 	braintreeClientSide(client_authorization);
-		// 		// });
-		// 	}else{
-
-		// 		alert("cash");
-			
-		// 	// console.log($('#checkout-modal-form').serializeArray());
-		// 	// var checkoutFormData = $('#checkout-modal-form').serializeArray();
-		// 	// $.each(checkoutFormData, function(i, val){
-		// 	// 	//console.log(val.name + ": " + val.value);
-		// 	// 	checkout.final[val.name] = val.value;
-		// 	// });
-		// 	// //JSON.stringify()
-		// 	// //var mydata = {'mycheckout': checkout};
-		// 	// console.log("mydata=" + JSON.stringify(checkout));
-		// 	// var d = "mydata=" + JSON.stringify(checkout);
-		// 	// $.post('http://127.0.0.1:8000/online-order/submitAPIView/', d);
-		// 	}
-		// 	return false;
-		// })
 
 
 

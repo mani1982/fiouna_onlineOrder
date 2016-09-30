@@ -52,7 +52,7 @@ form{
   border: none;
   margin: 5px 0px;
 }
-input[type="email"]{
+#checkout-modal-form input[type="email"]{
   display: block;
   height: 40px;
   /*width: 389px;*/
@@ -60,15 +60,17 @@ input[type="email"]{
   padding-left: 10px;
   border: none;
 }
-input[type="submit"]{
+#checkout-modal input[type="submit"]{
   display: block;
   height: 60px;
-  width: 400px;
+  width: 200px;
+  margin-left: 75px;
+
   border: none;
   background-color: #3C8DC5;
   color: #fff;
   margin-top: 2px;
-  curson: pointer;
+  cursor: pointer;
   font-size: 0.9em;
   text-transform: uppercase;
   font-weight: bold;
