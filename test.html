@@ -355,33 +355,37 @@
 					</div> <!-- end of personal-information -->
 				</div>
 				<div class="modal-body">
-					<form id="checkout-modal-form">
-						<div id="1">
+					
+					<div id="1">
+						<form id="checkout-userInfo-form">
 							<input id="first-name" class="column-left" type="text" required="required" name="firstname" placeholder="First Name"/>
 
 							<input id="last-name" class="column-right" type="text" name="lastname" placeholder="last-name" required="required"/>
 
 							<input id="email" class="input-field" type="email" name="email" required="required" autocomplete="on" maxlength="40" placeholder="Email"/>
+
+							<input id="phone" type="tel" pattern="[0-9]{10}" name="phone" required="required" autocomplete="on" maxlength="10" placeholder="Phone Number"/>
+						</form>
+
+					</div>
+
+					<div id="2" style="display:none">
+						<div id="delivery_option">
+							<select id="delivery_option_selection">
+								<option id="pickup" name="pickup" value="pickup">
+									pickup
+								</option>
+
+								<option id="delivery" name="delivery" value="delivery">
+									delivery
+								</option>
+							</select>
 						</div>
 
-						<div id="2" style="display:none">
-							<div id="delivery_option">
-								<select id="delivery_option_selection">
-									<option id="pickup" name="pickup" value="pickup">
-										pickup
-									</option>
+						<div id="address" style="display:none">
 
-									<option id="delivery" name="delivery" value="delivery">
-										delivery
-									</option>
-								</select>
-							</div>
-
-							<div id="address" style="display:none">
-
-							</div>
 						</div>
-					</form>
+					</div>
 
 					<div id="3" style="display:none">
 
@@ -911,7 +915,9 @@
 		var checkout = {};
 		checkout.dishes = [];
 		checkout.user = {};
-		checkout.delivery = 0;
+		// checkout.delivery = 0.00;
+		checkout.userInfo = {};
+		checkout.userAddress = {};
 		checkout.final= {};
 
 		function saveCart() {
@@ -937,11 +943,14 @@
 				checkout = {};
 				checkout.dishes = [];
 				checkout.user = {};
-				checkout.final= {};
+				checkout.userInfo = {};
+				checkout.final = {};
+				checkout.userAddress = {};
 				console.log(checkout);
 			}
 			if(checkout.dishes !== undefined && checkout !== null){
 				console.log('main5');
+				checkout.delivery = 0.00;
 
 				console.log(checkout);
 				updateshoppingcart();
@@ -1000,7 +1009,7 @@
 			//$('.table table-condensed tbody').empty();
 
 
-			var item_row = '',total_row ='', subtotal = 0, total = 0, tax = 0, taxrates = 7, delivery = 0.00;
+			var item_row = '',total_row ='', subtotal = 0.00, total = 0, tax = 0, taxrates = 7, delivery = 0.00;
 
 			//console.log(checkout);
 
@@ -1149,22 +1158,19 @@
 			checkout.delivery_option = $('#delivery_option_selection option:selected').val();
 			checkout.payment_option = $('#payment_option_selection option:selected').val();
 			saveCart();
-			console.log(checkout);
 
 			$('#delivery_option').on('change', function(e){
 				checkout.delivery_option = $('#delivery_option_selection option:selected').val();
-				console.log(checkout);
 				if($('#delivery_option_selection option:selected').val() == 'delivery'){
 
-					var addressTemplate = 
+					var addressTemplate = '<form id="checkout-userAddress-form">' + 
 					'<input id="address1" class="input-field" type="text" name="address1" required="required" autocomplete="on" maxlength="45" placeholder="Streed Address"/>' +
 
 					'<input id="address2" class="input-field" type="text" name="address2"  autocomplete="on" maxlength="45" placeholder="Streed Address2"/>' +
 
 					'<input id="city" class="column-left" type="text" name="city" required="required" autocomplete="on" maxlength="20" placeholder="City"/>' +
 
-					'<input id="zipcode" class="column-right" type="text" name="zipcode" required="required" autocomplete="on" pattern="[0-9]*" maxlength="5" placeholder="ZIP code"/>' +
-					'<input id="phone" type="tel" pattern="[0-9]{10}" name="Telephone" required="required" autocomplete="on" maxlength="10" placeholder="Phone Number"/>';
+					'<input id="zipcode" class="column-right" type="text" name="zipcode" required="required" autocomplete="on" pattern="[0-9]*" maxlength="5" placeholder="ZIP code"/> </form>';
 
 					$('#address').append(addressTemplate);
 
@@ -1172,13 +1178,14 @@
 				}else{
 					$('#address').empty();
 					$('#address').css("display","none");
+					checkout.delivery = 0.00;
+					updateshoppingcart();
 				}
 			});
 
 			$('#payment_option').on('change', function(e){
 				e.preventDefault();
 				checkout.payment_option = $('#payment_option_selection option:selected').val();
-				console.log(checkout);
 				if($('#payment_option_selection option:selected').val() == 'creditcard'){
 
 					// var creditcardTemplate = '<div class="panel panel-default bootstrap-basic"> <form class="panel-body">' +
@@ -1217,7 +1224,7 @@
 				var current_page = $(this).attr("page-id"),
 				next_page = parseInt(current_page) + 1;
 				
-				if(current_page ==1 && ($('#first-name').val()=="" || $('#last-name').val() == "" || $('#email').val() == "") ){
+				if(current_page ==1 && ($('#first-name').val()=="" || $('#last-name').val() == "" || $('#email').val() == "" || $('#phone').val() == "") ) {
 
 					if($('#first-name').val() == ""){
 
@@ -1240,6 +1247,13 @@
 						$('#email').css("border","");
 					}
 
+					if($('#phone').val() == ""){
+
+						$('#phone').css("border","thick solid red");
+					}else{
+						$('#phone').css("border","");
+					}
+
 					return
 				}else{
 					$('#1 input').each(function(){
@@ -1247,11 +1261,16 @@
 							$(this).css("border","none");
 						}
 					})
+					var checkout_userInfo_form = $('#checkout-userInfo-form').serializeArray();
+					// console.log(checkout_userInfo_form);
+					$(checkout_userInfo_form).each(function(indx, val){
+						checkout.userInfo[val.name] = val.value;
+					});
 				}
 
 				if(current_page == 2 && ($('#delivery_option_selection option:selected').val() == 'delivery')){
 							//$('#address2').val()=="" ||
-							if($('#address1').val()=="" || $('#city').val()=="" || $('#zipcode').val()=="" || $('#phone').val() == ""){
+							if($('#address1').val()=="" || $('#city').val()=="" || $('#zipcode').val()==""){
 
 								if($('#address1').val() == ""){
 
@@ -1285,13 +1304,6 @@
 									$('#zipcode').css("border","");
 								}
 
-								if($('#phone').val() == ""){
-
-									$('#phone').css("border","thick solid red");
-								}else{
-									$('#phone').css("border","");
-								}
-
 								return
 							}else{
 								$('#2 input').each(function(){
@@ -1299,12 +1311,27 @@
 										$(this).css("border","none");
 									}
 								})
+
+								delivery_calculation($('#address1').val() + $('#city').val() + $('#zipcode').val());
+								
+
+								var checkout_userAddress_form = $('#checkout-userAddress-form').serializeArray();
+								$(checkout_userAddress_form).each(function(indx, val){
+									checkout.userAddress[val.name] = val.value;
+								});
+								console.log(checkout);
+
+
 							}
 
-							delivery_calculation($('#address1').val() + $('#city').val() + $('#zipcode').val());
+							
 
 							
 						}
+						// else{
+						// 	checkout.delivery = 0.00
+						// 	updateshoppingcart();
+						// }
 
 						console.log("10")
 
@@ -1531,41 +1558,6 @@
 
 				}
 			});
-
-
-			// $.ajax({
-				
-			// 	type: 'GET',
-			// 	url:'https://maps.googleapis.com/maps/api/distancematrix/json',
-			// 	//?units=imperial&origins=90%20Peterborough%20St,%20Boston,MA&destinations='+ destination +'&key=AIzaSyAGbzWlcfZgzdkV502Oa7Iixj-s1HKzpq4',
-
-			// 	contentType: 'text/plain',
-			// 	data: {units: 'imperial', origins: '90 Peterborough St,Boston,MA', destinations: destination, key:'AIzaSyAGbzWlcfZgzdkV502Oa7Iixj-s1HKzpq4'},
-			// 	xhrFields: {
-			// 		//The 'xhrFields' property sets additional fields on the XMLHttpRequest.
-			// 		//This can be used to set the 'withCredentials' property.
-			// 		//Set the value to 'true' if you'd like to pass cookies to the server.
-			// 		//If this is enabled, your server must respond with the header
-			// 		//'Access-Control-Allow-Credentials: true'.
-			// 		withCredentials: true
-			// 	},
-			// 	// headers : {Accept : "application/json",
-			// 	// "Access-Control-Allow-Origin" : "*",
-			// 	// "Access-Control-Allow-Methods": "POST,GET,OPTIONS",
-			// 	// "Access-Control-Allow-Headers": "X-Authorization,X-Requested-With, Content-Type, Origin, authorization, accept, client-security-token"},
-			// 	//crossDomain: true,
-			// 	datatype: 'json',
-			// }).done(function(data){
-			// 	console.log(data);
-			// });
-
-			// var xhr = new XMLHttpRequest();
-			// xhr.open('GET', 'https://maps.googleapis.com/maps/api/distancematrix/json?units=imperial&origins=90%20Peterborough%20St,%20Boston,MA&destinations='+ destination +'&key=AIzaSyAGbzWlcfZgzdkV502Oa7Iixj-s1HKzpq4');
-
-			// xhr.onload = function () {
-			// 	console.log(xhr.responseText);
-			// };
-			// xhr.send();
 		}
 
 		//var form = document.querySelector('#cardForm');
@@ -1745,8 +1737,19 @@
 							});
 
 						}else{
+							console.log(checkout);
 
-							alert("cash");
+							$.ajax({
+								url: 'http://127.0.0.1:8000/online-order/submitAPIView',
+								type: 'POST',
+								contentType: 'application/json',
+								data: JSON.stringify(checkout),
+								dataType: 'json',
+							}).success(function(data){
+								console.log(data);
+							}).error(function(jqXHR, errorText, thrownError) {
+								alert(thrownError);
+							});
 						}
 						return false;
 

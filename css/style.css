@@ -43,7 +43,7 @@ form{
 /* input {
   margin: 2px 0px;
 }*/
-#checkout-modal-form input[type="text"], input[type="tel"]{
+#checkout-userInfo-form input[type="email"],#checkout-userInfo-form input[type="tel"],#checkout-userInfo-form input[type="text"]{
   display: block;
   height: 40px;
   /*width: 389px;*/
@@ -52,13 +52,13 @@ form{
   border: none;
   margin: 5px 0px;
 }
-#checkout-modal-form input[type="email"]{
+#checkout-userAddress-form input[type="text"]{
   display: block;
   height: 40px;
-  /*width: 389px;*/
   width: 100%;
   padding-left: 10px;
   border: none;
+  margin: 5px 0px;
 }
 #checkout-modal input[type="submit"]{
   display: block;
